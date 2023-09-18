@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dhoondle/src/features/screens/profile/widgets/profile_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ import '../../constants/colors.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
 import '../../registration/otp_screen.dart';
+import '../controllers/profile_controller.dart';
 import 'become_service_provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -24,6 +26,15 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   File? _image;
   final _picker = ImagePicker();
+  // OpenseaController openseaController = Get.put(OpenseaController());
+  final profileContoller=Get.put(ProfileController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  profileContoller.profileApi();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,13 +66,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
         //   ),
         // ],
       ),
-      body: Container(
+      body:  Obx(
+    () =>profileContoller.isLoading.value
+        ? Center(
+      child: CircularProgressIndicator(),
+    )
+        :  Container(
         child:Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //header section
+
               Row(
                 children: [
 
@@ -74,7 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: _image == null
                             ? ClipOval(
                             child: CachedNetworkImage(
-                              imageUrl: "",
+                              imageUrl:profileContoller.profileApiModel!.data!.image.toString(),
                               fit: BoxFit.fill,
                               width: 90,
                               height: 90,
@@ -126,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     width: 20,
                   ),
-                  Text(TextScreen.John,
+                  Text(profileContoller.profileApiModel!.data!.name.toString(),
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                             color: AppColors.txtgreyclr,
@@ -135,100 +153,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       )),
                 ],
               ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Divider(
                   color: Color(0xffB8B8B8),
                 ),
               ),
-              InkWell(
-             onTap: () => {
-             Get.toNamed('/becomeservice')
-                 // Get.to(BecomeServiceProvider())
-               // becomeservice
-             },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  // height: 40,
-                  child: Text(TextScreen.become,
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                            color: AppColors.txtgreyclr,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400),
-                      )),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Divider(
-                  color: Color(0xffB8B8B8),
-                ),
-              ),
-              Text(TextScreen.transaction,
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                        color: AppColors.txtgreyclr,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
-                  )),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Divider(
-                  color: Color(0xffB8B8B8),
-                ),
-              ),
-              Text(TextScreen.term,
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                        color: AppColors.txtgreyclr,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
-                  )),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Divider(
-                  color: Color(0xffB8B8B8),
-                ),
-              ),
-              Text(TextScreen.help,
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                        color: AppColors.txtgreyclr,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
-                  )),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Divider(
-                  color: Color(0xffB8B8B8),
-                ),
-              ),
-              Text(TextScreen.about_us,
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                        color: AppColors.txtgreyclr,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
-                  )),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Divider(
-                  color: Color(0xffB8B8B8),
-                ),
-              ),
-              Text(TextScreen.log_out,
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
-                  )),
+              // footer section
+              ProfileFooter()
+
             ],
           ),
         ) ,
       ),
-    );
+    ));
   }
 
   _imgFromCamera() async {
@@ -286,3 +225,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
   }
 }
+
+

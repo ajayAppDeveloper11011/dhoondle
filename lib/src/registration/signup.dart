@@ -15,6 +15,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/colors.dart';
 import '../constants/images.dart';
+import '../features/models/sign_up_model.dart';
 import '../features/screens/signup/widgets/signup_bottom.dart';
 import '../features/screens/signup/widgets/signup_form.dart';
 import '../features/screens/signup/widgets/signup_header.dart';
@@ -42,7 +43,7 @@ class _SignupState extends State<Signup> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   //header part
-                  SignupHeader(),
+                  SignupHeader(model: SignupModel(headertext: 'Sign up'),),
 
                   SizedBox(
                     height: 20,
@@ -50,7 +51,7 @@ class _SignupState extends State<Signup> {
                   //form part
                   SignupForm(formKey: _formKey),
                  //footer part
-                  SignupBottom()
+                  SignupBottom(model: SignupModelfooter(footertext: 'Sign up'),)
                 ],
               ),
             ),

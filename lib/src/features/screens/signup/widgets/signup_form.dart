@@ -1,17 +1,22 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants/colors.dart';
+import '../../../controllers/signup_controller.dart';
+import '../../../controllers/splash_controller.dart';
 
 class SignupForm extends StatelessWidget {
-  const SignupForm({
+   SignupForm({
     Key? key,
     required GlobalKey<FormState> formKey,
   }) : _formKey = formKey, super(key: key);
 
   final GlobalKey<FormState> _formKey;
-
+  final signUpController=Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -20,16 +25,14 @@ class SignupForm extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(0.0),
-            child: TextField(
-              // controller: MobileController,
+            child: TextFormField(
+              controller: signUpController.nameController.value,
               //obscureText: true,
               decoration: InputDecoration(
                 fillColor: AppColors.FillColor,
                 filled: true,
                 hintText: "Name",
-                hintStyle:
-                GoogleFonts.roboto(color: AppColors.HintTextColor),
-
+                hintStyle: GoogleFonts.roboto(color: AppColors.HintTextColor),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   borderSide:
@@ -62,14 +65,25 @@ class SignupForm extends StatelessWidget {
                 //     borderRadius: BorderRadius.circular(20),
                 //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
                 // )
+
               ),
+              validator: (name){
+                if (name!.isEmpty) {
+                  return "Enter name";
+                  // ToastMessage.msg("Please enter phone number");
+                }
+                else if (name.length !> 2) {
+                  return "Enter valid name";
+                  // ToastMessage.msg("Mobile Number must be of 10 digit");
+                }
+              },
             ),
           ),
           SizedBox(height: 20,),
           Padding(
             padding: const EdgeInsets.all(0.0),
-            child: TextField(
-              // controller: MobileController,
+            child: TextFormField(
+               controller: signUpController.addressController.value,
               //obscureText: true,
               decoration: InputDecoration(
                 fillColor: AppColors.FillColor,
@@ -111,13 +125,23 @@ class SignupForm extends StatelessWidget {
                 //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
                 // )
               ),
+              validator: (address){
+                if (address!.isEmpty) {
+                  return "Enter address";
+                  // ToastMessage.msg("Please enter phone number");
+                }
+                else if (address.length !> 2) {
+                  return "Enter valid address";
+                  // ToastMessage.msg("Mobile Number must be of 10 digit");
+                }
+              },
             ),
           ),
           SizedBox(height: 20,),
           Padding(
             padding: const EdgeInsets.all(0.0),
-            child: TextField(
-              // controller: MobileController,
+            child: TextFormField(
+               controller: signUpController.emailController.value,
               //obscureText: true,
               decoration: InputDecoration(
                 fillColor: AppColors.FillColor,
@@ -159,13 +183,21 @@ class SignupForm extends StatelessWidget {
                 //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
                 // )
               ),
+              validator: (value){
+                if(value!.isEmpty){ return "Please enter email";
+                }else if(EmailValidator.validate(value.trim())){
+                  return null;
+                }else{
+                  return"Invalid email address";
+                }
+              },
             ),
           ),
           SizedBox(height: 20,),
           Padding(
             padding: const EdgeInsets.all(0.0),
-            child: TextField(
-              // controller: MobileController,
+            child: TextFormField(
+               controller: signUpController.mobileController.value,
               //obscureText: true,
               decoration: InputDecoration(
                 fillColor: AppColors.FillColor,
@@ -207,6 +239,15 @@ class SignupForm extends StatelessWidget {
                 //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
                 // )
               ),
+              validator: (phone){
+                if (phone!.isEmpty) {
+                  return "Please enter phone number";
+                  // ToastMessage.msg("Please enter phone number");
+                } else if (phone.length != 10) {
+                  return "Mobile Number must be of 10 digit";
+                  // ToastMessage.msg("Mobile Number must be of 10 digit");
+                }
+              },
             ),
           ),
           SizedBox(height: 30,),

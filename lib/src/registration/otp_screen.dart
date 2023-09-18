@@ -8,6 +8,9 @@ import 'package:pinput/pinput.dart';
 import '../constants/colors.dart';
 import '../constants/images.dart';
 import '../features/screens/bottomNavigation.dart';
+import '../features/screens/otp/widgets/otp_footer.dart';
+import '../features/screens/otp/widgets/otp_form.dart';
+import '../features/screens/otp/widgets/otp_header.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -19,7 +22,8 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   bool isValidated = false;
   TextEditingController OtpController = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
+  var number= Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,22 +34,9 @@ class _OtpScreenState extends State<OtpScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 60),
-                  child: Image.asset(Images.logo),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Enter OTP",
-                  style: GoogleFonts.roboto(
-                    textStyle: Theme.of(context).textTheme.displayLarge,
-                    fontSize: 30,
-                    color: AppColors.HeaderTextColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                //otp header section
+                Otpheader(),
+
                 SizedBox(
                   height: 40,
                 ),
@@ -64,7 +55,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 //     style: TextStyle(fontSize: 17,),
                 //    ),
 
-               /* OTPTextField(
+                /* OTPTextField(
 
                   length: 5,
 
@@ -98,50 +89,10 @@ class _OtpScreenState extends State<OtpScreen> {
                 //   //runs when every textfield is filled
                 //   onSubmit: (String verificationCode) {},
                 // ),
-
-                 Pinput(
-                  length: 5,
-                  obscureText: false,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "OTP expires in : 53 sec",
-                  style: GoogleFonts.poppins(
-                    textStyle: Theme.of(context).textTheme.displayLarge,
-                    fontSize: 19,
-                    color: Color(0xff1D1D1D),
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                MaterialButton(
-                    onPressed: () {
-                      // Get.to(BottomNaigation());
-                      Get.toNamed('/bottom');
-                    },
-                    color: AppColors.ButtonColor,
-                    textColor: Colors.black,
-                    minWidth: 320,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(13)),
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: Text("Submit",
-                        style: GoogleFonts.roboto(
-                            fontSize: 18,
-                            color: AppColors.ButtonTextColor,
-                            fontWeight: FontWeight.w500))),
-                SizedBox(
-                  height: 30,
-                ),
-                Text("Resend",
-                    style: GoogleFonts.roboto(
-                        fontSize: 20,
-                        color: AppColors.HeaderTextColor,
-                        fontWeight: FontWeight.w500)),
+                //otp form section
+                OtpForm(formKey: _formKey),
+                //otp footer section
+                OtpFooter(number: number.toString()),
               ],
             ),
           ),
@@ -150,3 +101,9 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 }
+
+
+
+
+
+
