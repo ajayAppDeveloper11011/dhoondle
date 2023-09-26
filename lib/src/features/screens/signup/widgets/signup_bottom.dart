@@ -40,7 +40,14 @@ class SignupBottom extends StatelessWidget {
         MaterialButton(
             onPressed: (){
               // if (_formKey.currentState!.validate())
-                 signUpController.signUp();
+              if (signUpController.isValid.value) {
+                signUpController.signUp();
+                // Phone number is valid, proceed with your logic
+                // For example, you can call an API or navigate to the next screen
+              } else {
+                Get.snackbar('Enter Valid Number', 'please check phone number');
+                // Display an error message or take appropriate action
+              }
 
 
 

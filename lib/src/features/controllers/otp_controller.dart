@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +26,8 @@ class OtpController extends GetxController{
             'device_token':"13446"
           });
       var data = jsonDecode(response.body);
-      print(response.statusCode);
+      print(number);
+      print(otpController.value.text.toString());
       print(data);
       if(response.statusCode == 200){
         // Get.snackbar('Your otp is', otpController.value.text.toString());

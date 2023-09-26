@@ -74,6 +74,14 @@ class LoginForm extends StatelessWidget {
 
                   loginController.validatePhoneNumber(value);
                 },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter a mobile number";
+                      } else if (!GetUtils.isPhoneNumber(value)) {
+                        return "Mobile number is not valid";
+                      }
+                      return null;
+                    },
               ),
             ),
 

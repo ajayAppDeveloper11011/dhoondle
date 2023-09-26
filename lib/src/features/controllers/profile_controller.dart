@@ -11,9 +11,8 @@ import '../../api_model/profile_model_api.dart';
 import '../../constants/Api.dart';
 
 class ProfileController extends GetxController{
-
   ProfileApiModel? profileApiModel;
-  static ProfileController get find =>Get.find();
+  static ProfileController get instance =>Get.find();
   var isLoading = false.obs;
   final mobileController = TextEditingController().obs;
 

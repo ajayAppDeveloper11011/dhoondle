@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:dhoondle/src/features/screens/property_details_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../api_model/get_property_model.dart';
+import '../../constants/Api.dart';
 import '../../constants/colors.dart';
+import '../../constants/helper.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
+import 'package:http/http.dart'as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,6 +22,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
+  GetPropertyCategoryModel?_getPropertyCategoryModel;
+  bool _hashData = false;
+  bool _isVisible = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // Helper.checkInternet(getprofileApi());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +55,25 @@ class _HomeScreenState extends State<HomeScreen> {
       //     ),
       //   ],
       // ) ,
-      body: Container(
+      body:
+      // _getPropertyCategoryModel == null
+      //     ?_hashData
+      //     ?Container()
+      //     :Container(
+      //   height: MediaQuery.of(context).size.height/2,
+      //   width: MediaQuery.of(context).size.width,
+      //   color: Colors.black,
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.center,
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Text("No data found")
+      //     ],
+      //   ),
+      // ):
+
+
+      Container(
           height: size.height,
           width: size.width,
           child:ListView.builder(
@@ -119,4 +155,85 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  setProgress(bool show) {
+    if (mounted)
+      setState(() {
+        _isVisible = show;
+      });
+  }
+
+  Future<void> getprofileApi() async {
+
+    print("<=============GetprofileApi =============>");
+
+    // SessionHelper sessionHelper =await SessionHelper.getInstance(context);
+    // String userId = sessionHelper.get(SessionHelper.USER_ID) ?? "0";
+
+
+
+    // print("<=============userId =============>"+ userId);
+
+    setProgress(true);
+    Map data = {
+
+      'name':"shekhar",
+
+
+    };
+
+    print("Request =============>"+ data.toString());
+    try{
+      var res = await http.post(Uri.parse(Api.getPropertyCategory), body: data);
+      print("Response ============>"+ res.body);
+
+      if (res.statusCode == 200) {
+        print("jaydeep ============>");
+        try {
+          final jsonResponse = jsonDecode(res.body);
+          GetPropertyCategoryModel model =  GetPropertyCategoryModel.fromJson(jsonResponse);
+
+          if (model.status == "true") {
+            print("Model status true");
+
+            setProgress(false);
+
+            setState(() {
+              _getPropertyCategoryModel=model;
+              // nameController.text = _getprofileModel!.data!.fullName.toString();
+              // phoneController.text = _getprofileModel!.data!.phone.toString();
+              // emailController.text = _getprofileModel!.data!.email.toString();
+              // imagesource=_getprofileModel!.data!.image.toString();
+              // select=_getprofileModel!.data!.gender.toString();
+
+
+
+
+            });
+
+            ToastMessage.msg(model.message.toString());
+          }
+          else{
+            setProgress(false);
+            print("false ### ============>");
+            ToastMessage.msg(model.message.toString());
+          }
+        }
+        catch (e) {
+          print("false ============>");
+          ToastMessage.msg(StaticMessages.API_ERROR);
+          print('exception ==> '+ e.toString());
+        }
+      }else {
+        print("status code ==> "+res.statusCode.toString());
+        ToastMessage.msg(StaticMessages.API_ERROR);
+      }
+    }catch (e) {
+      ToastMessage.msg(StaticMessages.API_ERROR);
+      print('Exception ======> '+ e.toString());
+    }
+    setProgress(false);
+  }
+
+
 }

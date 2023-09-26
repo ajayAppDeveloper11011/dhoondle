@@ -7,4 +7,5 @@ class Api{
   static const getprofile=BaseUrl+'getprofile';
   static const getServiceList=BaseUrl+'getServiceList';
   static const getServiceProviderList=BaseUrl+'getServiceProviderList';
+  static const getPropertyCategory=BaseUrl+'getPropertyCategory';
 }
