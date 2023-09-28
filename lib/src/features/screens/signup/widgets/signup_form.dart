@@ -68,16 +68,20 @@ class SignupForm extends StatelessWidget {
                 // )
 
               ),
-              validator: (name){
-                if (name!.isEmpty) {
-                  return "Enter name";
-                  // ToastMessage.msg("Please enter phone number");
-                }
-                else if (name.length !> 2) {
-                  return "Enter valid name";
-                  // ToastMessage.msg("Mobile Number must be of 10 digit");
-                }
+              onChanged: (value) {
+
+                signUpController.validatename(value);
               },
+              // validator: (name){
+              //   if (name!.isEmpty) {
+              //     return "Enter name";
+              //     // ToastMessage.msg("Please enter phone number");
+              //   }
+              //   else if (name.length !> 2) {
+              //     return "Enter valid name";
+              //     // ToastMessage.msg("Mobile Number must be of 10 digit");
+              //   }
+              // },
             ),
           ),
           SizedBox(height: 20,),
@@ -127,16 +131,22 @@ class SignupForm extends StatelessWidget {
                 //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
                 // )
               ),
-              validator: (address){
-                if (address!.isEmpty) {
-                  return "Enter address";
-                  // ToastMessage.msg("Please enter phone number");
-                }
-                else if (address.length !> 2) {
-                  return "Enter valid address";
-                  // ToastMessage.msg("Mobile Number must be of 10 digit");
-                }
+
+              onChanged: (value) {
+
+                signUpController.validateaddress(value);
               },
+
+              // validator: (address){
+              //   if (address!.isEmpty) {
+              //     return "Enter address";
+              //     // ToastMessage.msg("Please enter phone number");
+              //   }
+              //   else if (address.length !> 2) {
+              //     return "Enter valid address";
+              //     // ToastMessage.msg("Mobile Number must be of 10 digit");
+              //   }
+              // },
             ),
           ),
           SizedBox(height: 20,),
@@ -243,14 +253,9 @@ class SignupForm extends StatelessWidget {
                 //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
                 // )
               ),
-              validator: (phone){
-                if (phone!.isEmpty) {
-                  return "Please enter phone number";
-                  // ToastMessage.msg("Please enter phone number");
-                } else if (phone.length != 10) {
-                  return "Mobile Number must be of 10 digit";
-                  // ToastMessage.msg("Mobile Number must be of 10 digit");
-                }
+              onChanged: (value) {
+
+                signUpController.validatePhoneNumber(value);
               },
             ),
           ),

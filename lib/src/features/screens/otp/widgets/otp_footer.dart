@@ -22,7 +22,7 @@ class OtpFooter extends StatelessWidget {
             onPressed: () {
               otpController.otpApi(number);
               // Get.to(BottomNaigation());
-               Get.toNamed('/bottom');
+
             },
             color: AppColors.ButtonColor,
             textColor: Colors.black,
