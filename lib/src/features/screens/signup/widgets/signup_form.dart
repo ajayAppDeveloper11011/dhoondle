@@ -27,6 +27,7 @@ class SignupForm extends StatelessWidget {
             padding: const EdgeInsets.all(0.0),
             child: TextFormField(
               controller: signUpController.nameController.value,
+              textInputAction: TextInputAction.next,
               //obscureText: true,
               decoration: InputDecoration(
                 fillColor: AppColors.FillColor,
@@ -83,6 +84,7 @@ class SignupForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(0.0),
             child: TextFormField(
+              textInputAction: TextInputAction.next,
                controller: signUpController.addressController.value,
               //obscureText: true,
               decoration: InputDecoration(
@@ -142,6 +144,7 @@ class SignupForm extends StatelessWidget {
             padding: const EdgeInsets.all(0.0),
             child: TextFormField(
                controller: signUpController.emailController.value,
+              textInputAction: TextInputAction.next,
               //obscureText: true,
               decoration: InputDecoration(
                 fillColor: AppColors.FillColor,
@@ -198,6 +201,7 @@ class SignupForm extends StatelessWidget {
             padding: const EdgeInsets.all(0.0),
             child: TextFormField(
                controller: signUpController.mobileController.value,
+              textInputAction: TextInputAction.done,
               //obscureText: true,
               decoration: InputDecoration(
                 fillColor: AppColors.FillColor,
@@ -251,6 +255,82 @@ class SignupForm extends StatelessWidget {
             ),
           ),
           SizedBox(height: 30,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("By continuing, you agree to the",
+                  style: GoogleFonts.roboto(
+                      fontSize: 16,
+                      color: AppColors.HintTextColor,
+                      fontWeight: FontWeight.w400)),
+              SizedBox(
+                width: 8,
+              ),
+              InkWell(
+                onTap: () => {
+                  Get.toNamed('/Policy')
+                },
+                child: Text("Privacy Policy",
+                    style: GoogleFonts.roboto(
+                        fontSize: 16,
+                        color: AppColors.RedTextColor,
+                        fontWeight: FontWeight.w500)),
+              ),
+            ],
+          ),
+          SizedBox(height: 50),
+          MaterialButton(
+              onPressed: (){
+                // if (_formKey.currentState!.validate())
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+                signUpController.signUp();
+              }
+
+                // print(signUpController.nameController.value.text.toString());
+                // Get.toNamed('/otp');
+                // Get.to(LogInScreen());
+              },
+              color:  Color(0xffD70404),textColor: Colors.black,
+              minWidth: 320,shape:RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12)),
+              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 15),
+              child:
+              Text("Sign up", style: GoogleFonts.roboto(
+                textStyle: Theme.of(context).textTheme.displayLarge,
+                fontSize: 20,
+                color: AppColors.ButtonTextColor,
+                fontWeight: FontWeight.bold,
+              ),)
+
+          ),
+          SizedBox(height: 100,),
+          Center(
+            child:Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Already have an account?",
+                    style: GoogleFonts.roboto(
+                        fontSize: 16,
+                        color: AppColors.HintTextColor,
+                        fontWeight: FontWeight.w400)),
+                SizedBox(
+                  width: 8,
+                ),
+                InkWell(
+                  onTap: () => {
+
+                     Get.toNamed('/login')
+                  },
+                  child: Text("Log In",
+                      style: GoogleFonts.roboto(
+                          fontSize: 16,
+                          color: AppColors.RedTextColor,
+                          fontWeight: FontWeight.w500)),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

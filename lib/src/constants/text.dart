@@ -37,4 +37,5 @@ class TextScreen{
   static const service_provider ='Service Provider';
   static const add_property ='Add Property';
   static const add_service ='Add Service';
+  static const privacy ='Privacy Policy';
 }

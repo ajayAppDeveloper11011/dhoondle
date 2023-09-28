@@ -66,12 +66,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         //   ),
         // ],
       ),
-      body:  Obx(
-    () =>profileContoller.isLoading.value
-        ? Center(
-      child: CircularProgressIndicator(),
-    )
-        :  Container(
+      body: Obx(
+            () => profileContoller.isLoading.value? Container():  Container(
         child:Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
           child: Column(

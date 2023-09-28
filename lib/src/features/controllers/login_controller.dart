@@ -56,7 +56,8 @@ class LoginController extends GetxController{
           body: {
             'number':mobileController.value.text.toString(),
             'device_token':"13446"
-          });
+          }
+          );
       var data = jsonDecode(response.body);
 
 

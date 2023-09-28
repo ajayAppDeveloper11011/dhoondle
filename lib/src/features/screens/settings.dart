@@ -9,9 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/images.dart';
+import '../controllers/become_provider_controller.dart';
 
 
 class Setting extends StatefulWidget {
@@ -22,6 +25,8 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
+  
+  final becomeBroviderController=Get.put(BecomeProviderController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,50 +38,60 @@ class _SettingState extends State<Setting> {
               child: Column( mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(height: 200,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black26,width: 2),
+                  InkWell(
+                    onTap: () => {
+                      becomeBroviderController.becomeProviderApi("0")
+                    },
+                    child: Container(height: 200,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black26,width: 2),
 
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset(Images.house, height: 200,fit:BoxFit.fill,),
-                        SizedBox(width: 60,),
-                        Text("Property",style: GoogleFonts.poppins(
-                          textStyle: TextStyle(color: Color(0xff4E4E4E), fontWeight: FontWeight.w500, fontSize: 15),
-                        ),),
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset(Images.house, height: 200,fit:BoxFit.fill,),
+                          SizedBox(width: 60,),
+                          Text("Property",style: GoogleFonts.poppins(
+                            textStyle: TextStyle(color: Color(0xff4E4E4E), fontWeight: FontWeight.w500, fontSize: 15),
+                          ),),
 
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 50,),
-                  Container(
-                    height: 200,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black26,width: 2),
+                  InkWell(
+                    onTap: () => {
+                      becomeBroviderController.becomeProviderApi("1")
+                    },
+                    child: Container(
+                      height: 200,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black26,width: 2),
 
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset(Images.setting, height: 200,width:200,fit: BoxFit.fill,),
-                        SizedBox(width: 60,),
-                        Column(mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Other",style: GoogleFonts.poppins(
-                              textStyle: TextStyle(color: Color(0xff4E4E4E), fontWeight: FontWeight.w500, fontSize: 15),
-                            ),),
-                            Text("Services",style: GoogleFonts.poppins(
-                              textStyle: TextStyle(color: Color(0xff4E4E4E), fontWeight: FontWeight.w500, fontSize: 15),
-                            ),),
-                          ],
-                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset(Images.setting, height: 200,width:200,fit: BoxFit.fill,),
+                          SizedBox(width: 60,),
+                          Column(mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Other",style: GoogleFonts.poppins(
+                                textStyle: TextStyle(color: Color(0xff4E4E4E), fontWeight: FontWeight.w500, fontSize: 15),
+                              ),),
+                              Text("Services",style: GoogleFonts.poppins(
+                                textStyle: TextStyle(color: Color(0xff4E4E4E), fontWeight: FontWeight.w500, fontSize: 15),
+                              ),),
+                            ],
+                          ),
 
 
 
-                      ],
+                        ],
+                      ),
                     ),
                   )
                 ],

@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../constants/colors.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
+import '../controllers/get_servicelist_controller.dart';
 import 'add_services.dart';
 
 class ServiceScreenTabbar extends StatefulWidget {
@@ -18,6 +19,15 @@ class ServiceScreenTabbar extends StatefulWidget {
 }
 
 class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
+  final serviceController=Get.put(GetServiceListController());
+  // final deleteController=Get.put(GetServiceListController());
+  String service_id="";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    serviceController.getServiceList();
+  }
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -38,141 +48,152 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
       //     ),
       //   ],
       // ) ,
-      body: Container(
-        height: size.height,
-        width: size.width,
-        child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                onTap: () => {Get.to(PropertyDetailsScreen())},
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xffDADADA)),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
+      body:  Stack(
+        children: [
+          Container(
+            height: size.height,
+            width: size.width,
+            child: ListView.builder(
+                itemCount: serviceController.getServiceListApi!.serviceList!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  service_id=serviceController.getServiceListApi!.serviceList![index].id.toString();
+                  return InkWell(
+                    onTap: () => {Get.to(PropertyDetailsScreen())},
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Color(0xffDADADA)),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                height: 100,
-                                width: 100,
-                                decoration: BoxDecoration(shape: BoxShape.circle),
-                                child: ClipOval(
-                                    child: CachedNetworkImage(
-                                      imageUrl: Images.man,
-                                      fit: BoxFit.fill,
-                                      width: 90,
-                                      height: 90,
-                                      placeholder: (context, url) =>
-                                          LinearProgressIndicator(
-                                            color: Colors.white.withOpacity(0.2),
-                                            backgroundColor: Colors.white.withOpacity(.5),
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(shape: BoxShape.circle),
+                                    child: ClipOval(
+                                        child: CachedNetworkImage(
+                                          imageUrl:serviceController.getServiceListApi!.serviceList![index].image.toString(),
+                                          fit: BoxFit.fill,
+                                          width: 90,
+                                          height: 90,
+                                          placeholder: (context, url) =>
+                                              LinearProgressIndicator(
+                                                color: Colors.white.withOpacity(0.2),
+                                                backgroundColor: Colors.white.withOpacity(.5),
+                                              ),
+                                          errorWidget: (context, url, error) => Container(
+                                            width: 80,
+                                            height: 80,
+                                            decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(20),
+                                              ),
+                                              color: Color(0xFFD9D9D9),
+                                            ),
+                                            child: Center(
+                                                child: Image.asset(
+                                                  Images.man,
+                                                  height: 100,
+                                                  width: 100,
+                                                )),
                                           ),
-                                      errorWidget: (context, url, error) => Container(
-                                        width: 80,
-                                        height: 80,
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
-                                          color: Color(0xFFD9D9D9),
-                                        ),
-                                        child: Center(
-                                            child: Image.asset(
-                                              Images.man,
-                                              height: 100,
-                                              width: 100,
-                                            )),
-                                      ),
-                                    ))
+                                        ))
 
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Container(
+                                    height:size.width*0.4 ,
+                                    width: size.width*0.55,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+
+                                        // Text("John Doe", style: GoogleFonts.poppins(
+                                        //     color: Color(0xff4C4C4C),
+                                        //     fontWeight: FontWeight.w500,
+                                        //     fontSize: 18
+                                        // ),),
+                                        Text(serviceController.getServiceListApi!.serviceList![index].service.toString(), style: GoogleFonts.poppins(
+                                            color: Color(0xff4C4C4C),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14
+                                        ),),
+                                        Container(
+
+                                          child: Text(serviceController.getServiceListApi!.serviceList![index].description.toString(), style: GoogleFonts.poppins(
+                                              color: Color(0xffA7A7A7),
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+
+                                          ),overflow: TextOverflow.ellipsis,maxLines: 4,
+                                          ),
+                                        )
+                                        ,
+                                      ],
+                                    ),
+                                  )
+                                ],
                               ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Container(
-                                height:size.width*0.4 ,
-                                width: size.width*0.55,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 0.0, vertical: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-
-                                    Text("John Doe", style: GoogleFonts.poppins(
-                                        color: Color(0xff4C4C4C),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18
-                                    ),),
-                                    Text("Plumbing", style: GoogleFonts.poppins(
-                                        color: Color(0xff4C4C4C),
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14
-                                    ),),
-                                    Text("I am a high level of experience in Plumbing Services with best Offer and less time Consumption", style: GoogleFonts.poppins(
-                                        color: Color(0xffA7A7A7),
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14,
-                                    ),overflow: TextOverflow.clip,
-                                    )
-                                    ,
+                                    // Image.asset(
+                                    //   Images.eye,
+                                    //   height: size.height * 0.035,
+                                    // ),
+                                    // SizedBox(
+                                    //   width: 25,
+                                    // ),
+                                    Image.asset(
+                                      Images.pencil,
+                                      height: size.height * 0.03,
+                                    ),
+                                    SizedBox(
+                                      width: 25,
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        service_id=serviceController.getServiceListApi!.serviceList![index].id.toString();
+                                        print("======service-id==========${service_id}");
+                                        showAlertDailog();
+                                      },
+                                      child: Image.asset(
+                                        Images.bin,
+                                        height: size.height * 0.03,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 0.0, vertical: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Image.asset(
-                                  Images.eye,
-                                  height: size.height * 0.035,
-                                ),
-                                SizedBox(
-                                  width: 25,
-                                ),
-                                Image.asset(
-                                  Images.pencil,
-                                  height: size.height * 0.03,
-                                ),
-                                SizedBox(
-                                  width: 25,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    showAlertDailog();
-                                  },
-                                  child: Image.asset(
-                                    Images.bin,
-                                    height: size.height * 0.03,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              );
-            }),
+                  );
+                }),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         foregroundColor: AppColors.primaryColor,
@@ -231,7 +252,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.pop(context);
+                            serviceController.deleteApi(service_id);
                           },
                           child: Container(
                             height: 40,

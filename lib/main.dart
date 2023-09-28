@@ -5,6 +5,7 @@ import 'package:dhoondle/src/features/screens/become_service_provider.dart';
 import 'package:dhoondle/src/features/screens/bottomNavigation.dart';
 import 'package:dhoondle/src/features/screens/home_screen.dart';
 import 'package:dhoondle/src/features/screens/plumber_screen.dart';
+import 'package:dhoondle/src/features/screens/privacy_policy.dart';
 import 'package:dhoondle/src/features/screens/profile_screen.dart';
 import 'package:dhoondle/src/features/screens/property_details_screen.dart';
 import 'package:dhoondle/src/features/screens/property_screen.dart';
@@ -34,16 +35,16 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DHOONDLE APP',
-      initialRoute: '/landing',
+      initialRoute: '/splash',
       getPages: [
-        GetPage(name: '/landing', page: () => SplashScreen()),
+        GetPage(name: '/splash', page: () => SplashScreen()),
         GetPage(name: '/signup', page: () => Signup()),
         GetPage(name: '/login', page: () => LogInScreen()),
         GetPage(name: '/otp', page: () => OtpScreen()),
         GetPage(name: '/bottom', page: () => BottomNaigation()),
         GetPage(name: '/becomeservice', page: () => BecomeServiceProvider()),
         GetPage(name: '/service', page: () => ServicesTabbar()),
-        GetPage(name: '/home', page: () => HomeScreen()),
+        GetPage(name: '/home', page: () => HomeScreen(category: '',)),
         GetPage(name: '/profile', page: () => ProfileScreen()),
         GetPage(name: '/servicescreen', page: () => ServiceScreen()),
         GetPage(name: '/propertydetail', page: () => PropertyDetailsScreen()),
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/addservice', page: () => AddServiceScreen()),
         GetPage(name: '/plumber', page: () => PlumberScreen()),
         GetPage(name: '/propertyscreen', page: () => PropertyScreen()),
+        GetPage(name: '/Policy', page: () => PrivacyPolicyScreen()),
       ],
       theme: ThemeData(
         // This is the theme of your application.

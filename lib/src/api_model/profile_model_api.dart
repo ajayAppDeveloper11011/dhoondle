@@ -1,76 +1,85 @@
+import 'dart:convert';
+
 class ProfileApiModel {
-  String? status;
-  String? message;
-  Data? data;
+  String status;
+  String message;
+  Data data;
 
-  ProfileApiModel({this.status, this.message, this.data});
+  ProfileApiModel({
+    required this.status,
+    required this.message,
+    required this.data,
+  });
 
-  ProfileApiModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-  }
+  factory ProfileApiModel.fromRawJson(String str) => ProfileApiModel.fromJson(json.decode(str));
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
-  }
+  String toRawJson() => json.encode(toJson());
+
+  factory ProfileApiModel.fromJson(Map<String, dynamic> json) => ProfileApiModel(
+    status: json["status"],
+    message: json["message"],
+    data: Data.fromJson(json["data"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "message": message,
+    "data": data.toJson(),
+  };
 }
 
 class Data {
-  String? userId;
-  String? name;
-  String? mobile;
-  String? email;
-  String? address;
-  String? otp;
-  String? image;
-  String? deviceToken;
-  String? latitude;
-  String? longitude;
+  String userId;
+  String name;
+  String mobile;
+  String email;
+  String address;
+  String otp;
+  String image;
+  String deviceToken;
+  String latitude;
+  String longitude;
 
-  Data(
-      {this.userId,
-        this.name,
-        this.mobile,
-        this.email,
-        this.address,
-        this.otp,
-        this.image,
-        this.deviceToken,
-        this.latitude,
-        this.longitude});
+  Data({
+    required this.userId,
+    required this.name,
+    required this.mobile,
+    required this.email,
+    required this.address,
+    required this.otp,
+    required this.image,
+    required this.deviceToken,
+    required this.latitude,
+    required this.longitude,
+  });
 
-  Data.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
-    name = json['name'];
-    mobile = json['mobile'];
-    email = json['email'];
-    address = json['address'];
-    otp = json['otp'];
-    image = json['image'];
-    deviceToken = json['device_token'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-  }
+  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_id'] = this.userId;
-    data['name'] = this.name;
-    data['mobile'] = this.mobile;
-    data['email'] = this.email;
-    data['address'] = this.address;
-    data['otp'] = this.otp;
-    data['image'] = this.image;
-    data['device_token'] = this.deviceToken;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    return data;
-  }
+  String toRawJson() => json.encode(toJson());
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    userId: json["user_id"],
+    name: json["name"],
+    mobile: json["mobile"],
+    email: json["email"],
+    address: json["address"],
+    otp: json["otp"],
+    image: json["image"],
+    deviceToken: json["device_token"],
+    latitude: json["latitude"],
+    longitude: json["longitude"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "user_id": userId,
+    "name": name,
+    "mobile": mobile,
+    "email": email,
+    "address": address,
+    "otp": otp,
+    "image": image,
+    "device_token": deviceToken,
+    "latitude": latitude,
+    "longitude": longitude,
+  };
 }

@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../constants/colors.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
+import '../controllers/become_provider_controller.dart';
 
 class BecomeServiceProvider extends StatefulWidget {
   const BecomeServiceProvider({super.key});
@@ -21,8 +22,8 @@ class BecomeServiceProvider extends StatefulWidget {
 }
 
 class _BecomeServiceProviderState extends State<BecomeServiceProvider> {
-  File? _image;
-  final _picker = ImagePicker();
+
+  final becomeBroviderController=Get.put(BecomeProviderController());
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
@@ -67,7 +68,8 @@ class _BecomeServiceProviderState extends State<BecomeServiceProvider> {
               ),
               InkWell(
                 onTap: () => {
-                Get.toNamed('/service')
+                  becomeBroviderController.becomeProviderApi("0")
+
                   // Get.to(ServicesTabbar())
                 },
                 child: Container(height: 160,
@@ -106,7 +108,7 @@ class _BecomeServiceProviderState extends State<BecomeServiceProvider> {
               ),
               InkWell(
                 onTap: () => {
-                  Get.to(ServicesTabbar())
+                  becomeBroviderController.becomeProviderApi("1")
                 },
                 child: Container(height: 160,
                   width: MediaQuery.of(context).size.width,

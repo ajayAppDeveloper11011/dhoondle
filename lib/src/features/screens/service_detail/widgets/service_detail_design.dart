@@ -8,6 +8,8 @@ import 'package:flutter_rating_native/flutter_rating_native.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 import '../../../../constants/images.dart';
 import '../../../controllers/service_detail_controller.dart';
@@ -159,22 +161,38 @@ class ServiceDetailDesign extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Column(
+                Column(
                               mainAxisAlignment:
                               MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  Images.Telephone,
-                                  height: 32,
-                                  width: 32,
+
+
+
+                                InkWell(
+                                  onTap: ()  {
+                             _launchPhoneCall('+12026899719');
+
+                                  },
+                                  child: Image.asset(
+                                    Images.Telephone,
+                                    height: 32,
+                                    width: 32,
+                                  ),
                                 ),
+
+
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Image.asset(
-                                  Images.Whatsapp,
-                                  height: 32,
-                                  width: 32,
+                                InkWell(
+                                  onTap: () => {
+                                    launchWhatsApp()
+                                  },
+                                  child: Image.asset(
+                                    Images.Whatsapp,
+                                    height: 32,
+                                    width: 32,
+                                  ),
                                 ),
                               ],
                             )
@@ -189,4 +207,32 @@ class ServiceDetailDesign extends StatelessWidget {
           }),
     ));
   }
+
+
+   _launchPhoneCall(String phoneNumber) async {
+     final url = 'tel:$phoneNumber';
+     if (await canLaunch(url)) {
+       await launch(url);
+     } else {
+       throw 'Could not launch $url';
+     }
+   }
+
+
+   launchWhatsApp() async {
+     final link = WhatsAppUnilink(
+       phoneNumber: '+12026899719',
+       text: "Hey! I'm inquiring about the apartment listing",
+     );
+     // Convert the WhatsAppUnilink instance to a string.
+     // Use either Dart's string interpolation or the toString() method.
+     // The "launch" method is part of "url_launcher".
+     await launch('$link');
+
+   }
+
+
+
+
+
 }

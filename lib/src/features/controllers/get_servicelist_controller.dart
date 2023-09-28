@@ -8,17 +8,20 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../api_model/get_service_list_model.dart';
 import '../../api_model/login_api_model.dart';
 import '../../api_model/profile_model_api.dart';
 import '../../constants/Api.dart';
+import 'common_model.dart';
 
-class ProfileController extends GetxController{
+class GetServiceListController extends GetxController{
 
-  ProfileApiModel? profileApiModel;
+  GetMyServiceList? getServiceListApi;
+  CommonModel?commonmodel;
   final dio = Dio();
-  static ProfileController get find =>Get.find();
+  static GetServiceListController get find =>Get.find();
   var isLoading = false.obs;
-  final mobileController = TextEditingController().obs;
+
 
   // void profileApi() async{
   //   print("================profile api=============");
@@ -61,20 +64,20 @@ class ProfileController extends GetxController{
   //   }
   // }
 
-  Future<void> onInit() async {
-    profileApi();
-    super.onInit();
-  }
 
-  profileApi() async {
+
+  getServiceList() async {
+    print("=====================getservicelistapi===============");
     isLoading(true);
     final prefs = await SharedPreferences.getInstance();
     var user_id=   await prefs.getString('user_id');
-    var res = await dio.get(Api.getprofile+"?user_id=${user_id}");
+    print("==============userId=======${user_id}");
+    var res = await dio.get(Api.getMyServiceList+"?user_id=${user_id}");
     if(res.statusCode == 200){
       isLoading(false);
       var body = jsonDecode(res.toString());
-      profileApiModel = ProfileApiModel.fromJson(body);
+      getServiceListApi = GetMyServiceList.fromJson(body);
+      print(body);
     }
     else{
       isLoading(true);
@@ -83,5 +86,45 @@ class ProfileController extends GetxController{
       }
     }
   }
+
+
+
+  Future<void> deleteApi(String service_id) async {
+    print("=====================delete service===============");
+    isLoading(true);
+    final prefs = await SharedPreferences.getInstance();
+    var userId = await prefs.getString('user_id');
+
+    print("==============userId=======${userId}");
+    print("==============service_id=======${service_id}");
+    try {
+      final response = await dio.post(
+        Api.deleteService,
+        data: {
+          'user_id': userId.toString(),
+          'service_id': service_id.toString(),
+        },
+      );
+
+      if (response.statusCode == 200) {
+
+        isLoading(false);
+        var body = response.data;
+        commonmodel = CommonModel.fromJson(body);
+        Get.back();
+        print(body);
+      } else {
+        isLoading(true);
+        if (kDebugMode) {
+          print(response.statusCode.toString());
+        }
+      }
+    } catch (e) {
+      // Handle any exceptions or errors that occur during the POST request
+      isLoading(true);
+      print("Error: $e");
+    }
+  }
+
 }
 

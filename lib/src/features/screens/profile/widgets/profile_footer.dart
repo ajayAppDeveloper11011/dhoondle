@@ -6,12 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/text.dart';
+import '../../../controllers/logout_controller.dart';
 
 class ProfileFooter extends StatelessWidget {
-  const ProfileFooter({
+   ProfileFooter({
     Key? key,
   }) : super(key: key);
-
+  final logoutController=Get.put(LogOutController());
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -93,13 +94,18 @@ class ProfileFooter extends StatelessWidget {
             color: Color(0xffB8B8B8),
           ),
         ),
-        Text(TextScreen.log_out,
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                  color: AppColors.primaryColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
-            )),
+        InkWell(
+          onTap: () => {
+            logoutController.logoutApi()
+          },
+          child: Text(TextScreen.log_out,
+              style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500),
+              )),
+        ),
       ],
     );
   }

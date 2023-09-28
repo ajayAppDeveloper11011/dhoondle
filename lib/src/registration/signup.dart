@@ -51,7 +51,7 @@ class _SignupState extends State<Signup> {
                   //form part
                   SignupForm(formKey: _formKey),
                  //footer part
-                  SignupBottom(model: SignupModelfooter(footertext: 'Sign up'),)
+                 //  SignupBottom(model: SignupModelfooter(footertext: 'Sign up'),)
                 ],
               ),
             ),

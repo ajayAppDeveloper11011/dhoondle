@@ -29,11 +29,16 @@ class SignupBottom extends StatelessWidget {
             SizedBox(
               width: 8,
             ),
-            Text("Privacy Policy",
-                style: GoogleFonts.roboto(
-                    fontSize: 16,
-                    color: AppColors.RedTextColor,
-                    fontWeight: FontWeight.w500)),
+            InkWell(
+              onTap: () => {
+                Get.toNamed('/Policy')
+              },
+              child: Text("Privacy Policy",
+                  style: GoogleFonts.roboto(
+                      fontSize: 16,
+                      color: AppColors.RedTextColor,
+                      fontWeight: FontWeight.w500)),
+            ),
           ],
         ),
         SizedBox(height: 50),

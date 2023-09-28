@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
+import '../controllers/api_controller.dart';
 import 'bottomNavigation.dart';
 import 'home_screen.dart';
 
@@ -17,11 +20,14 @@ class TabbarScreen extends StatefulWidget {
 class _TabbarScreenState extends State<TabbarScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  ApiController controller = Get.put(ApiController());
+
 
   void initState() {
     // TODO: implement initState
     super.initState();
     _tabController = new TabController(length: 4, vsync: this);
+    controller.getpropertyapi();
   }
 
   @override
@@ -54,7 +60,8 @@ class _TabbarScreenState extends State<TabbarScreen>
             ],
           ) ,
           body: SafeArea(
-            child: Container(
+            child:Obx(
+              () => controller.isLoading.value? Container():   Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: DefaultTabController(
@@ -106,7 +113,7 @@ class _TabbarScreenState extends State<TabbarScreen>
                                                       horizontal: 0,
                                                       vertical: 0),
                                                   // textColor: Colors.white,
-                                                  child: Text(TextScreen.Hostel,
+                                                  child: Text("RK",
                                                       style: GoogleFonts
                                                           .roboto(
                                                         textStyle: TextStyle(
@@ -119,7 +126,7 @@ class _TabbarScreenState extends State<TabbarScreen>
                                                       )),
                                                   onPressed: () {}),
                                             )
-                                                : Text(TextScreen.Hostel,
+                                                : Text("RK",
                                                 style: GoogleFonts.roboto(
                                                   textStyle: TextStyle(
                                                       color:
@@ -152,7 +159,7 @@ class _TabbarScreenState extends State<TabbarScreen>
                                                       horizontal: 0,
                                                       vertical: 0),
                                                   // textColor: Colors.white,
-                                                  child: Text(TextScreen.Rent,
+                                                  child: Text("1BHK",
                                                       style: GoogleFonts
                                                           .roboto(
                                                         textStyle: TextStyle(
@@ -164,7 +171,7 @@ class _TabbarScreenState extends State<TabbarScreen>
                                                       )),
                                                   onPressed: () {}),
                                             )
-                                                : Text(TextScreen.Rent,
+                                                : Text("1BHK",
                                                 style: GoogleFonts.roboto(
                                                   textStyle: TextStyle(
                                                       color:
@@ -197,7 +204,7 @@ class _TabbarScreenState extends State<TabbarScreen>
                                                       horizontal: 0,
                                                       vertical: 0),
                                                   // textColor: Colors.white,
-                                                  child: Text(TextScreen.one_bhk,
+                                                  child: Text("2BHK",
                                                       style: GoogleFonts
                                                           .roboto(
                                                         textStyle: TextStyle(
@@ -209,7 +216,7 @@ class _TabbarScreenState extends State<TabbarScreen>
                                                       )),
                                                   onPressed: () {}),
                                             )
-                                                : Text(TextScreen.one_bhk,
+                                                : Text("2BHK",
                                                 style: GoogleFonts.roboto(
                                                   textStyle: TextStyle(
                                                       color:
@@ -242,7 +249,7 @@ class _TabbarScreenState extends State<TabbarScreen>
                                                       horizontal: 0,
                                                       vertical: 0),
                                                   // textColor: Colors.white,
-                                                  child: Text(TextScreen.two_bhk,
+                                                  child: Text("Villa",
                                                       style: GoogleFonts
                                                           .roboto(
                                                         textStyle: TextStyle(
@@ -254,7 +261,10 @@ class _TabbarScreenState extends State<TabbarScreen>
                                                       )),
                                                   onPressed: () {}),
                                             )
-                                                : Text(TextScreen.two_bhk,
+
+
+                                            //controller.getPropertyCategoryModel!.categoryList[3].category.toString(),
+                                                : Text("Villa",
                                                 style: GoogleFonts.roboto(
                                                   textStyle: TextStyle(
                                                       color:
@@ -279,10 +289,10 @@ class _TabbarScreenState extends State<TabbarScreen>
                           physics: NeverScrollableScrollPhysics(),
                           children: [
 
-                            HomeScreen(),
-                            HomeScreen(),
-                            HomeScreen(),
-                            HomeScreen(),
+                            HomeScreen(category: "RK",),
+                            HomeScreen(category: "1BHK",),
+                            HomeScreen(category: "2BHK",),
+                            HomeScreen(category: "Villa"),
 
 
                           ],
@@ -292,6 +302,6 @@ class _TabbarScreenState extends State<TabbarScreen>
                   )),
             ),
           )),
-    );
+    ));
   }
 }
