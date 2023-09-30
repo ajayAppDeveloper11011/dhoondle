@@ -1,10 +1,10 @@
-class CommonModel {
+class EditServiceModel {
   String? status;
   String? message;
 
-  CommonModel({this.status, this.message});
+  EditServiceModel({this.status, this.message});
 
-  CommonModel.fromJson(Map<String, dynamic> json) {
+  EditServiceModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
   }

@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/addpropertynew', page: () => AddPropertynew()),
         GetPage(name: '/setting3', page: () => Setting3()),
         GetPage(name: '/setting2', page: () => Setting2()),
-        GetPage(name: '/addservice', page: () => AddServiceScreen(service_id: '',)),
+        GetPage(name: '/addservice', page: () => AddServiceScreen(service_id: '', service_name: '', service_des: '', number: '', address: '', serviceImage: '', serviceCategory: '',)),
         GetPage(name: '/plumber', page: () => PlumberScreen()),
         GetPage(name: '/propertyscreen', page: () => PropertyScreen()),
         GetPage(name: '/Policy', page: () => PrivacyPolicyScreen()),

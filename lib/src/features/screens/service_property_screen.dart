@@ -69,7 +69,8 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
             width: size.width,
             child:getServiceListApi!.serviceList!.isEmpty?Container(
               height: 400,
-              child: Center(child: Text("No property found")),): ListView.builder(
+              child: Center(child: Text("No property found")),):
+            ListView.builder(
                 itemCount: getServiceListApi!.serviceList!.length,
                 itemBuilder: (BuildContext context, int index) {
                   service_id=getServiceListApi!.serviceList![index].id.toString();
@@ -180,9 +181,24 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                                     // SizedBox(
                                     //   width: 25,
                                     // ),
-                                    Image.asset(
-                                      Images.pencil,
-                                      height: size.height * 0.03,
+                                    InkWell(
+                                      onTap: (){
+
+                                       Helper.moveToScreenwithPush(context,
+                                           AddServiceScreen(
+                                             serviceImage:getServiceListApi!.serviceList![index].image.toString(),
+                                             service_id: getServiceListApi!.serviceList![index].serviceId.toString(),
+                                             service_name:  getServiceListApi!.serviceList![index].service.toString(),
+                                             service_des: getServiceListApi!.serviceList![index].description.toString(),
+                                             address: getServiceListApi!.serviceList![index].address.toString(),
+                                             number: getServiceListApi!.serviceList![index].number.toString(),
+                                             serviceCategory: getServiceListApi!.serviceList![index].id.toString(),
+                                           ));
+                                      },
+                                      child: Image.asset(
+                                        Images.pencil,
+                                        height: size.height * 0.03,
+                                      ),
                                     ),
                                     SizedBox(
                                       width: 25,
@@ -224,7 +240,8 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
         foregroundColor: AppColors.primaryColor,
         backgroundColor: Colors.white,
         onPressed: () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddServiceScreen(service_id: '',)));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
+              AddServiceScreen(service_id: '', service_name: '', service_des: '', number: '', address: '', serviceImage: '', serviceCategory: '',)));
           // Add your action here
           // For example, you can navigate to another screen or perform some action.
           // Navigator.push(context, MaterialPageRoute(builder: (context) => NextScreen()));
@@ -233,6 +250,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
       ),
     );
   }
+
   showAlertDailog() {
     return showDialog(
 
@@ -346,7 +364,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
 
 
   Future<void>getmyservicelist() async {
-    print("<=============homeApi =============>");
+    print("<=============getmyservicelist =============>");
 
     final prefs = await SharedPreferences.getInstance();
     var user_id=   await prefs.getString('user_id');
@@ -362,7 +380,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
       print("Response ============>" + res.body);
 
       if (res.statusCode == 200) {
-        print("jaydeep ============>");
+
         try {
           final jsonResponse = jsonDecode(res.body);
           GetMyServiceList model = GetMyServiceList.fromJson(jsonResponse);
@@ -404,7 +422,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
   }
 
   Future<void> deleteApi(String service_id) async {
-    print("<=============homeApi =============>");
+    print("<=============deleteApi =============>");
 
     final prefs = await SharedPreferences.getInstance();
     var user_id=   await prefs.getString('user_id');
@@ -412,6 +430,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
     setProgress(true);
     Map data = {
       'user_id': user_id.toString(),
+      'service_id': service_id.toString(),
     };
 
     print("Request =============>" + data.toString());
@@ -420,7 +439,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
       print("Response ============>" + res.body);
 
       if (res.statusCode == 200) {
-        print("jaydeep ============>");
+
         try {
           final jsonResponse = jsonDecode(res.body);
           CommonModel model = CommonModel.fromJson(jsonResponse);
@@ -432,6 +451,8 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
 
             setState(() {
               commonmodel = model;
+              Helper.popScreen(context);
+              Helper.checkInternet(getmyservicelist());
             });
 
             // ToastMessage.msg(model.message.toString());
