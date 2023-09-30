@@ -1,5 +1,7 @@
 import 'dart:convert';
-
+import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,8 @@ import 'package:http/http.dart';
 
 import '../../api_model/login_api_model.dart';
 import '../../constants/Api.dart';
+import '../../constants/helper.dart';
+import '../../registration/otp_screen.dart';
 
 class LoginController extends GetxController{
   final formKey = GlobalKey<FormState>();
@@ -16,6 +20,7 @@ class LoginController extends GetxController{
   final isValid = RxBool(false);
   static LoginController get find =>Get.find();
   final mobileController = TextEditingController().obs;
+
 
 
 
@@ -49,7 +54,7 @@ class LoginController extends GetxController{
   }
 
 
-  void login() async{
+   login(String verificationId, int? forceResendingToken) async{
     print("================login api=============");
     try{
       final response= await post(Uri.parse(Api.login),
@@ -70,6 +75,8 @@ class LoginController extends GetxController{
         if(model.status == 'true'){
           Get.snackbar('Your otp is',model!.data!.otp.toString());
 
+          // Helper.moveToScreenwithPush(context, OtpScreen(verificationId: '',))
+
           Get.toNamed('/otp',arguments: mobileController.value.text.toString());
         }
         else{
@@ -84,6 +91,63 @@ class LoginController extends GetxController{
       Get.snackbar('Exception', e.toString());
     }
   }
+
+
+  Future<void> phoneCheckWithFirebase() async{
+    // setProgress(true);
+    //firebase otp code
+    // String phone = "+" + countryCodeCreated + phoneController.text.trim();
+    String phone = "+234" + mobileController.toString();
+    //new code start
+    final _fireStore = FirebaseFirestore.instance;
+    QuerySnapshot querySnapshot = await _fireStore.collection('customer_details').where("customer_phone", isEqualTo: phone).get();
+    // final allData =
+    // querySnapshot.docs.map((doc) => doc.get('phone')).toList();
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    if (allData.length==0) {
+      //new code end
+      //firebase otp code
+      // String phone = "+" + countryCodeCreated + phoneController.text.trim();
+      await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: phone,
+          verificationCompleted: (credential) {
+            // setProgress(false);
+          },
+          verificationFailed: (ex) {
+            ToastMessage.msg(ex.code.toString());
+            log("ex"+ ex.code.toString());
+            // setProgress(false);
+          },
+          codeSent: (verificationId, forceResendingToken) {
+            // setProgress(false);
+            //API to call
+
+            Helper.checkInternet( login(verificationId,forceResendingToken ));
+            //  Helper.moveToScreenwithPush(context, OtpVerifyScreen(
+            //    forceResendingToken: forceResendingToken,
+            //    number: numberController.text.trim(),
+            //    verificationId: verificationId,
+            //    afterSignUp: true,
+            //  ));
+          },
+          codeAutoRetrievalTimeout: (verificationId) {
+            // setProgress(false);
+          },
+          timeout: Duration(seconds: 30)
+      );
+      //firebase otp code end
+      //firebase otp code end
+    }
+    else{
+      FirebaseAuth.instance.signOut();
+      ToastMessage.msg("Phone number already registered, Please sign in");
+      // Fluttertoast.showToast( msg:"");
+      // setProgress(false);
+    }
+  }
+
+
 
 
   //  validateData() {

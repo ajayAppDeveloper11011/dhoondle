@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dhoondle/src/features/screens/property_details_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,11 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../api_model/get_service_list_model.dart';
+import '../../constants/Api.dart';
 import '../../constants/colors.dart';
+import '../../constants/helper.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
+import '../controllers/common_model.dart';
 import '../controllers/get_servicelist_controller.dart';
 import 'add_services.dart';
+import 'package:http/http.dart'as http;
 
 class ServiceScreenTabbar extends StatefulWidget {
   const ServiceScreenTabbar({Key? key}) : super(key: key);
@@ -19,14 +27,17 @@ class ServiceScreenTabbar extends StatefulWidget {
 }
 
 class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
-  final serviceController=Get.put(GetServiceListController());
+  GetMyServiceList? getServiceListApi;
   // final deleteController=Get.put(GetServiceListController());
   String service_id="";
+  bool _isVisible = false;
+  bool _hasData = true;
+  CommonModel?commonmodel;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    serviceController.getServiceList();
+    Helper.checkInternet(getmyservicelist());
   }
   @override
   Widget build(BuildContext context) {
@@ -50,15 +61,23 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
       // ) ,
       body:  Stack(
         children: [
+          getServiceListApi==null?Container(
+            height: 400,
+            child: Center(child: Text("No property found")),):
           Container(
             height: size.height,
             width: size.width,
-            child: ListView.builder(
-                itemCount: serviceController.getServiceListApi!.serviceList!.length,
+            child:getServiceListApi!.serviceList!.isEmpty?Container(
+              height: 400,
+              child: Center(child: Text("No property found")),): ListView.builder(
+                itemCount: getServiceListApi!.serviceList!.length,
                 itemBuilder: (BuildContext context, int index) {
-                  service_id=serviceController.getServiceListApi!.serviceList![index].id.toString();
+                  service_id=getServiceListApi!.serviceList![index].id.toString();
                   return InkWell(
-                    onTap: () => {Get.to(PropertyDetailsScreen())},
+                    onTap: () => {
+                      // Get.to(PropertyDetailsScreen(property_id: serviceController.getServiceListApi!.serviceList!.length.toString(),))
+
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +102,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                                     decoration: BoxDecoration(shape: BoxShape.circle),
                                     child: ClipOval(
                                         child: CachedNetworkImage(
-                                          imageUrl:serviceController.getServiceListApi!.serviceList![index].image.toString(),
+                                          imageUrl:getServiceListApi!.serviceList![index].image.toString(),
                                           fit: BoxFit.fill,
                                           width: 90,
                                           height: 90,
@@ -127,14 +146,14 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                                         //     fontWeight: FontWeight.w500,
                                         //     fontSize: 18
                                         // ),),
-                                        Text(serviceController.getServiceListApi!.serviceList![index].service.toString(), style: GoogleFonts.poppins(
+                                        Text(getServiceListApi!.serviceList![index].service.toString(), style: GoogleFonts.poppins(
                                             color: Color(0xff4C4C4C),
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14
                                         ),),
                                         Container(
 
-                                          child: Text(serviceController.getServiceListApi!.serviceList![index].description.toString(), style: GoogleFonts.poppins(
+                                          child: Text(getServiceListApi!.serviceList![index].description.toString(), style: GoogleFonts.poppins(
                                               color: Color(0xffA7A7A7),
                                               fontWeight: FontWeight.w400,
                                               fontSize: 14,
@@ -170,7 +189,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        service_id=serviceController.getServiceListApi!.serviceList![index].id.toString();
+                                        service_id=getServiceListApi!.serviceList![index].id.toString();
                                         print("======service-id==========${service_id}");
                                         showAlertDailog();
                                       },
@@ -193,13 +212,19 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                   );
                 }),
           ),
+          Positioned(
+            child: Align(
+              alignment: Alignment.center,
+              child: HelperClass.getProgressBar(context, _isVisible),
+            ),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
         foregroundColor: AppColors.primaryColor,
         backgroundColor: Colors.white,
         onPressed: () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddServiceScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddServiceScreen(service_id: '',)));
           // Add your action here
           // For example, you can navigate to another screen or perform some action.
           // Navigator.push(context, MaterialPageRoute(builder: (context) => NextScreen()));
@@ -252,7 +277,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                       children: [
                         InkWell(
                           onTap: () {
-                            serviceController.deleteApi(service_id);
+                          deleteApi(service_id);
                           },
                           child: Container(
                             height: 40,
@@ -309,4 +334,132 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
         }
     );
   }
+
+  setProgress(bool show) {
+    if (mounted)
+      setState(() {
+        _isVisible = show;
+      });
+  }
+
+
+
+
+  Future<void>getmyservicelist() async {
+    print("<=============homeApi =============>");
+
+    final prefs = await SharedPreferences.getInstance();
+    var user_id=   await prefs.getString('user_id');
+
+    setProgress(true);
+    Map data = {
+      'user_id': user_id.toString(),
+    };
+
+    print("Request =============>" + data.toString());
+    try {
+      var res = await http.post(Uri.parse(Api.getMyServiceList), body: data);
+      print("Response ============>" + res.body);
+
+      if (res.statusCode == 200) {
+        print("jaydeep ============>");
+        try {
+          final jsonResponse = jsonDecode(res.body);
+          GetMyServiceList model = GetMyServiceList.fromJson(jsonResponse);
+
+          if (model.status == "true") {
+            print("Model status true");
+
+            setProgress(false);
+
+            setState(() {
+              getServiceListApi = model;
+            });
+
+            // ToastMessage.msg(model.message.toString());
+          } else {
+            setState(() {
+              _hasData = false;
+            });
+            setProgress(false);
+            print("false ### ============>");
+            ToastMessage.msg(model.message.toString());
+          }
+        } catch (e) {
+          _hasData = false;
+          print("false ============>");
+          ToastMessage.msg(StaticMessages.API_ERROR);
+          print('exception ==> ' + e.toString());
+        }
+      } else {
+        print("status code ==> " + res.statusCode.toString());
+        ToastMessage.msg(StaticMessages.API_ERROR);
+      }
+    } catch (e) {
+      _hasData = false;
+      ToastMessage.msg(StaticMessages.API_ERROR);
+      print('Exception ======> ' + e.toString());
+    }
+    setProgress(false);
+  }
+
+  Future<void> deleteApi(String service_id) async {
+    print("<=============homeApi =============>");
+
+    final prefs = await SharedPreferences.getInstance();
+    var user_id=   await prefs.getString('user_id');
+
+    setProgress(true);
+    Map data = {
+      'user_id': user_id.toString(),
+    };
+
+    print("Request =============>" + data.toString());
+    try {
+      var res = await http.post(Uri.parse(Api.deleteService), body: data);
+      print("Response ============>" + res.body);
+
+      if (res.statusCode == 200) {
+        print("jaydeep ============>");
+        try {
+          final jsonResponse = jsonDecode(res.body);
+          CommonModel model = CommonModel.fromJson(jsonResponse);
+
+          if (model.status == "true") {
+            print("Model status true");
+
+            setProgress(false);
+
+            setState(() {
+              commonmodel = model;
+            });
+
+            // ToastMessage.msg(model.message.toString());
+          } else {
+            setState(() {
+              _hasData = false;
+            });
+            setProgress(false);
+            print("false ### ============>");
+            ToastMessage.msg(model.message.toString());
+          }
+        } catch (e) {
+          _hasData = false;
+          print("false ============>");
+          ToastMessage.msg(StaticMessages.API_ERROR);
+          print('exception ==> ' + e.toString());
+        }
+      } else {
+        print("status code ==> " + res.statusCode.toString());
+        ToastMessage.msg(StaticMessages.API_ERROR);
+      }
+    } catch (e) {
+      _hasData = false;
+      ToastMessage.msg(StaticMessages.API_ERROR);
+      print('Exception ======> ' + e.toString());
+    }
+    setProgress(false);
+  }
+
+
 }

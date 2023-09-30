@@ -19,10 +19,16 @@ import 'package:dhoondle/src/features/screens/tabbar_screen.dart';
 import 'package:dhoondle/src/registration/log_in_screen.dart';
 import 'package:dhoondle/src/registration/otp_screen.dart';
 import 'package:dhoondle/src/registration/signup.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    // options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp( MyApp());
 }
 
@@ -40,19 +46,19 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/splash', page: () => SplashScreen()),
         GetPage(name: '/signup', page: () => Signup()),
         GetPage(name: '/login', page: () => LogInScreen()),
-        GetPage(name: '/otp', page: () => OtpScreen()),
+        GetPage(name: '/otp', page: () => OtpScreen(number: '', forceResendingToken: null, verificationId: '', afterSignUp: true,)),
         GetPage(name: '/bottom', page: () => BottomNaigation()),
         GetPage(name: '/becomeservice', page: () => BecomeServiceProvider()),
         GetPage(name: '/service', page: () => ServicesTabbar()),
         GetPage(name: '/home', page: () => HomeScreen(category: '',)),
         GetPage(name: '/profile', page: () => ProfileScreen()),
         GetPage(name: '/servicescreen', page: () => ServiceScreen()),
-        GetPage(name: '/propertydetail', page: () => PropertyDetailsScreen()),
+        GetPage(name: '/propertydetail', page: () => PropertyDetailsScreen(property_id: '',)),
         GetPage(name: '/addproperty', page: () => AddPropertyScreen()),
         GetPage(name: '/addpropertynew', page: () => AddPropertynew()),
         GetPage(name: '/setting3', page: () => Setting3()),
         GetPage(name: '/setting2', page: () => Setting2()),
-        GetPage(name: '/addservice', page: () => AddServiceScreen()),
+        GetPage(name: '/addservice', page: () => AddServiceScreen(service_id: '',)),
         GetPage(name: '/plumber', page: () => PlumberScreen()),
         GetPage(name: '/propertyscreen', page: () => PropertyScreen()),
         GetPage(name: '/Policy', page: () => PrivacyPolicyScreen()),

@@ -116,7 +116,7 @@ class ServiceDetailDesign extends StatelessWidget {
                                     Row(
                                       children: [
                                         FlutterRating(
-                                          rating: 4,
+                                          rating: double.parse(servicedetailController.serviceDetailModel!.data![index].rating.toString()??"0"),
                                           starCount: 5,
                                           borderColor: Colors.yellow,
                                           color: Color(0xffFFC121),
@@ -149,7 +149,7 @@ class ServiceDetailDesign extends StatelessWidget {
                                         // ),
                                         //  Image.asset(ProjectImage.star),
                                         Text(
-                                          "4.0",
+                                          servicedetailController.serviceDetailModel!.data![index].rating.toString(),
                                           style: GoogleFonts.poppins(
                                               color: Color(0xff4E4E4E),
                                               fontWeight: FontWeight.w700,

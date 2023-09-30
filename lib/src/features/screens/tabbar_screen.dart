@@ -286,7 +286,7 @@ class _TabbarScreenState extends State<TabbarScreen>
                       Expanded(
                         child: TabBarView(
                           controller: _tabController,
-                          physics: NeverScrollableScrollPhysics(),
+                          // physics: NeverScrollableScrollPhysics(),
                           children: [
 
                             HomeScreen(category: "RK",),

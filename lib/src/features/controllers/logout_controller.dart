@@ -20,10 +20,11 @@ class LogOutController extends GetxController{
 
 
   logoutApi() async {
+    print("========================logout============");
     isLoading(true);
     final prefs = await SharedPreferences.getInstance();
     var user_id=   await prefs.getString('user_id');
-    var res = await dio.get(Api.getprofile+"?user_id=${user_id}");
+    var res = await dio.get(Api.logout+"?user_id=${user_id}");
     if(res.statusCode == 200){
       // Get.toNamed('/bottom');
       // Get.offAndToNamed('/signup');

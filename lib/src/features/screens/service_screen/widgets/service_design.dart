@@ -38,7 +38,7 @@ class ServiceListDesign extends StatelessWidget {
               crossAxisCount: 3,
               crossAxisSpacing: 10,
               mainAxisSpacing: 15,
-              childAspectRatio: 2 / 2),
+              childAspectRatio: 2 / 2.8),
           itemCount: serviceController.serviceListApiModel!.serviceList!.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(

@@ -13,4 +13,6 @@ class Api{
   static const getMyServiceList=BaseUrl+'getMyServiceList';
   static const deleteService=BaseUrl+'deleteService';
   static const getPropertyList=BaseUrl+'getPropertyList';
+  static const getPropertyDetails=BaseUrl+'getPropertyDetails';
+  static const addService=BaseUrl+'addService';
 }

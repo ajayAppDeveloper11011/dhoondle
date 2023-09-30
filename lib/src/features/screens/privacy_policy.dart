@@ -30,7 +30,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         ),
         centerTitle: true,
         elevation: 0,
-        title: Text(TextScreen.privacy,
+        title: Text("Terms and Conditions",
             style: GoogleFonts.roboto(
               textStyle: TextStyle(
                   color: Colors.white,

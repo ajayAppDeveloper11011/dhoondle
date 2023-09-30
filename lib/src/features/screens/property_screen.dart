@@ -44,7 +44,7 @@ class _PropertyScreenState extends State<PropertyScreen> {
             itemCount: 5,
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
-                onTap: () => {Get.to(PropertyDetailsScreen())},
+                onTap: () => {Get.to(PropertyDetailsScreen(property_id: '',))},
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

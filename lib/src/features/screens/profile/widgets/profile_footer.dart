@@ -5,8 +5,14 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants/colors.dart';
+import '../../../../constants/helper.dart';
 import '../../../../constants/text.dart';
+import '../../../../webview.dart';
 import '../../../controllers/logout_controller.dart';
+import '../../about_us.dart';
+import '../../help.dart';
+import '../../privacy_policy.dart';
+import '../../services_tabbar.dart';
 
 class ProfileFooter extends StatelessWidget {
    ProfileFooter({
@@ -20,7 +26,8 @@ class ProfileFooter extends StatelessWidget {
       children: [
         InkWell(
           onTap: () => {
-            Get.toNamed('/becomeservice')
+            Helper.moveToScreenwithPush(context, ServicesTabbar())
+            // Get.toNamed('/becomeservice')
             // Get.to(BecomeServiceProvider())
             // becomeservice
           },
@@ -36,58 +43,83 @@ class ProfileFooter extends StatelessWidget {
                 )),
           ),
         ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(vertical: 15.0),
+        //   child: Divider(
+        //     color: Color(0xffB8B8B8),
+        //   ),
+        // ),
+        // Text(TextScreen.transaction,
+        //     style: GoogleFonts.poppins(
+        //       textStyle: TextStyle(
+        //           color: AppColors.txtgreyclr,
+        //           fontSize: 16,
+        //           fontWeight: FontWeight.w400),
+        //     )),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: Divider(
             color: Color(0xffB8B8B8),
           ),
         ),
-        Text(TextScreen.transaction,
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                  color: AppColors.txtgreyclr,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            )),
+        InkWell(
+          onTap: () {
+            HelperClass.moveToScreenwithPush(context, PrivacyPolicyScreen());
+
+          },
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Text(TextScreen.term,
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                      color: AppColors.txtgreyclr,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400),
+                )),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: Divider(
             color: Color(0xffB8B8B8),
           ),
         ),
-        Text(TextScreen.term,
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                  color: AppColors.txtgreyclr,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            )),
+        InkWell(
+          onTap: () {
+            HelperClass.moveToScreenwithPush(context, HelpScreen());
+          },
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Text(TextScreen.help,
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                      color: AppColors.txtgreyclr,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400),
+                )),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: Divider(
             color: Color(0xffB8B8B8),
           ),
         ),
-        Text(TextScreen.help,
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                  color: AppColors.txtgreyclr,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            )),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15.0),
-          child: Divider(
-            color: Color(0xffB8B8B8),
+        InkWell(
+          onTap: () {
+            HelperClass.moveToScreenwithPush(context, Aboutscreen());
+          },
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Text(TextScreen.about_us,
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                      color: AppColors.txtgreyclr,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400),
+                )),
           ),
         ),
-        Text(TextScreen.about_us,
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                  color: AppColors.txtgreyclr,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            )),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: Divider(
@@ -98,13 +130,16 @@ class ProfileFooter extends StatelessWidget {
           onTap: () => {
             logoutController.logoutApi()
           },
-          child: Text(TextScreen.log_out,
-              style: GoogleFonts.poppins(
-                textStyle: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-              )),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Text(TextScreen.log_out,
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                )),
+          ),
         ),
       ],
     );

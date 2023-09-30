@@ -6,6 +6,8 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants/colors.dart';
+import '../../../../constants/helper.dart';
+import '../../../../webview.dart';
 import '../../../controllers/signup_controller.dart';
 import '../../../controllers/splash_controller.dart';
 
@@ -132,9 +134,16 @@ class SignupForm extends StatelessWidget {
                 // )
               ),
 
-              onChanged: (value) {
-
-                signUpController.validateaddress(value);
+              // onChanged: (value) {
+              //
+              //   signUpController.validateaddress(value);
+              // },
+              validator: (value){
+                if(value!.isEmpty){ return "Please enter your address";
+                }
+                else if(value.length < 8){
+                  ToastMessage.msg("address must be of 8 digit");
+                }
               },
 
               // validator: (address){
@@ -253,10 +262,19 @@ class SignupForm extends StatelessWidget {
                 //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
                 // )
               ),
-              onChanged: (value) {
+              // onChanged: (value) {
+              //
+              //   signUpController.validatePhoneNumber(value);
+              // },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return ("Please enter your number");
+                  }
+                  else if (value.length != 10) {
+                    return ("Number must be equal to ten digits");
+                  }
+                }
 
-                signUpController.validatePhoneNumber(value);
-              },
             ),
           ),
           SizedBox(height: 30,),
@@ -273,7 +291,7 @@ class SignupForm extends StatelessWidget {
               ),
               InkWell(
                 onTap: () => {
-                  Get.toNamed('/Policy')
+                  HelperClass.moveToScreenwithPush(context, Terms())
                 },
                 child: Text("Privacy Policy",
                     style: GoogleFonts.roboto(
