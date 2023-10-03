@@ -43,6 +43,7 @@ class Images{
   static const callus='assets/images/callus.png';
   static const address='assets/images/address.png';
   static const aboutus='assets/images/aboutus.png';
+  static const coming_soon='assets/images/coming_soon.png';
 
   // static const String Telephone = 'assets/Images/Telephone.png';
   // static const String Whatsapp = 'assets/Images/Whatsapp.png';

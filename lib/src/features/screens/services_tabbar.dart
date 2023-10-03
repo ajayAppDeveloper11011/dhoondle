@@ -188,7 +188,7 @@ class _ServicesTabbarState extends State<ServicesTabbar>
                       Expanded(
                         child: TabBarView(
                           controller: _tabController,
-                          physics: NeverScrollableScrollPhysics(),
+                          // physics: NeverScrollableScrollPhysics(),
                           children: [
 
                             PropertyScreen(),

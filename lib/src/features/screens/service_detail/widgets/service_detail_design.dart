@@ -170,7 +170,7 @@ class ServiceDetailDesign extends StatelessWidget {
 
                                 InkWell(
                                   onTap: ()  {
-                             _launchPhoneCall('+12026899719');
+                             _launchPhoneCall( servicedetailController.serviceDetailModel!.data![index].number.toString());
 
                                   },
                                   child: Image.asset(
@@ -186,7 +186,7 @@ class ServiceDetailDesign extends StatelessWidget {
                                 ),
                                 InkWell(
                                   onTap: () => {
-                                    launchWhatsApp()
+                                    launchWhatsApp(servicedetailController.serviceDetailModel!.data![index].number.toString())
                                   },
                                   child: Image.asset(
                                     Images.Whatsapp,
@@ -219,9 +219,9 @@ class ServiceDetailDesign extends StatelessWidget {
    }
 
 
-   launchWhatsApp() async {
+   launchWhatsApp(String phoneNumber) async {
      final link = WhatsAppUnilink(
-       phoneNumber: '+12026899719',
+       phoneNumber: phoneNumber,
        text: "Hey! I'm inquiring about the apartment listing",
      );
      // Convert the WhatsAppUnilink instance to a string.
@@ -230,6 +230,7 @@ class ServiceDetailDesign extends StatelessWidget {
      await launch('$link');
 
    }
+
 
 
 

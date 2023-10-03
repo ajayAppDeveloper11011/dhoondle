@@ -115,7 +115,18 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    CarouselSlider.builder(
+                   getPropertyDetailModel!.propertyImage!.isEmpty?   Container(
+                     height: size.height*0.25,
+                     width: size.width,
+                     // padding: EdgeInsets.symmetric(horizontal: 20),
+                     // margin: EdgeInsets.symmetric(horizontal: 20),
+                     decoration: BoxDecoration(
+                         image: DecorationImage(
+                             image: AssetImage(Images.coming_soon),fit: BoxFit.cover
+                         )
+                     ),
+
+                   ): CarouselSlider.builder(
                       carouselController: carouselController,
                       itemCount: getPropertyDetailModel!.propertyImage!.length,
                       itemBuilder: (BuildContext context, int index, int itemIndex) {
@@ -150,34 +161,18 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                     color: Colors.white.withOpacity(0.2),
                                     backgroundColor: Colors.white.withOpacity(.5),
                                   ),
-                                  errorWidget: (context, url, error) => Container(
-                                    height: size.height * 0.28,
-                                    width: MediaQuery.of(context).size.width,
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 0),
+                                  errorWidget: (context, url, error) =>
+                                      Container(
+                                    height: size.height*0.25,
+                                    width: size.width,
+                                    // padding: EdgeInsets.symmetric(horizontal: 20),
+                                    // margin: EdgeInsets.symmetric(horizontal: 20),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      // boxShadow: [
-                                      //   BoxShadow(
-                                      //     color: Colors.grey.withOpacity(0.2),
-                                      //     spreadRadius: 2,
-                                      //     blurRadius: 2,
-                                      //     offset: Offset(0, 1), // changes position of shadow
-                                      //   ),
-                                      // ],
+                                        image: DecorationImage(
+                                            image: AssetImage(Images.coming_soon),fit: BoxFit.cover
+                                        )
                                     ),
-                                    child: Center(
-                                      // child: Icon(
-                                      //   Icons.flag,
-                                      //   size: 20,
-                                      //   color: AppColor.primaryColor,
-                                      // ),
-                                      child: Image.asset(
-                                        Images.flat,
-                                        fit: BoxFit.fill,
-                                        height: size.height * 0.25,
-                                      ),
-                                    ),
+
                                   ),
                                 ),
                               ),
@@ -211,7 +206,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    AnimatedSmoothIndicator(
+                    getPropertyDetailModel!.propertyImage!.isEmpty? Container():  AnimatedSmoothIndicator(
                       activeIndex: currentIndex,
                       count: 3,
                       effect: SlideEffect(
@@ -240,7 +235,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                             children: [
                               InkWell(
                                 onTap: ()  {
-                                  _launchPhoneCall('+12026899719');
+                                  _launchPhoneCall(getPropertyDetailModel!.propertyDetails!.mobile.toString());
                                 },
                                 child: Image.asset(
                                   Images.Telephone,
@@ -252,7 +247,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                               ),
                               InkWell(
                                 onTap: ()  {
-                                  launchWhatsApp();
+                                  launchWhatsApp(getPropertyDetailModel!.propertyDetails!.mobile.toString());
                                 },
                                 child: Image.asset(
                                   Images.Whatsapp,
@@ -526,9 +521,9 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   }
 
 
-  launchWhatsApp() async {
+  launchWhatsApp(String phoneNumber) async {
     final link = WhatsAppUnilink(
-      phoneNumber: '+12026899719',
+      phoneNumber: '+91 ${phoneNumber}',
       text: "Hey! I'm inquiring about the apartment listing",
     );
     // Convert the WhatsAppUnilink instance to a string.
@@ -537,6 +532,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
     await launch('$link');
 
   }
+
 
 
 

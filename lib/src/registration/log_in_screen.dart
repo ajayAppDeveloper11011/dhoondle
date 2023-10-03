@@ -285,7 +285,7 @@ class _LogInScreenState extends State<LogInScreen> {
       if(response.statusCode == 200){
         LoginOtp model = LoginOtp.fromJson(data);
         if(model.status == 'true'){
-          Get.snackbar('Your otp is',model!.data!.otp.toString());
+          // Get.snackbar('Your otp is',model!.data!.otp.toString());
 
            // Helper.moveToScreenwithPush(context, OtpScreen(verificationId: '', number: '', forceResendingToken: null, afterSignUp: null,));
           Helper.moveToScreenwithPush(context, OtpScreen(

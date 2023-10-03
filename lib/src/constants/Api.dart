@@ -15,4 +15,12 @@ class Api{
   static const getPropertyList=BaseUrl+'getPropertyList';
   static const getPropertyDetails=BaseUrl+'getPropertyDetails';
   static const addService=BaseUrl+'addService';
+  static const getMyProperty=BaseUrl+'getMyProperty';
+  static const deleteMyProperty=BaseUrl+'deleteMyProperty';
+  ///amit
+
+  static const addServiceImages=BaseUrl+'addServiceImages';
+  static const editService=BaseUrl+'editService';
+  static const addProperty=BaseUrl+'addProperty';
+  static const addPropertyImages=BaseUrl+'addPropertyImages';
 }

@@ -705,60 +705,77 @@ class _AddPropertynewState extends State<AddPropertynew> {
                     SizedBox(height: 20,),
                     facilitiesList.isEmpty ?
                     Container():
-                    Container(
-                      height: 100,
-                      child: GridView.builder(
-                          gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 2 / 1,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20),
-                          itemCount: facilitiesList.length,
-                          itemBuilder: (BuildContext ctx, index) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2.5,
-                                  padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.primaryColor,
-                                    border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
-                                    borderRadius: BorderRadius.circular(10),
+                    GridView.builder(
+                      shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: facilitiesList.length,
+                        gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 2 / 1,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20),
+                        itemBuilder: (BuildContext ctx, index) {
+                          return Stack(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    // width: MediaQuery.of(context).size.width/2.5,
+                                    width: 150,
+                                    height: 58,
+                                    padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primaryColor,
+                                      border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child:  Center(
+                                      child: Text(facilitiesList[index].toString(),
+                                          style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                          )),
+                                    ),
                                   ),
-                                  child:  Center(
-                                    child: Text(facilitiesList[index].toString(),
-                                        style: GoogleFonts.poppins(
-                                          textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                          ),
-                                        )),
-                                  ),
-                                ),
-                                // Container(
-                                //   width: MediaQuery.of(context).size.width/2.3,
-                                //   padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                                //   decoration: BoxDecoration(
-                                //     color: AppColors.primaryColor,
-                                //     border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
-                                //     borderRadius: BorderRadius.circular(10),
-                                //   ),
-                                //   child:  Center(
-                                //     child: Text("TV",
-                                //         style: GoogleFonts.poppins(
-                                //           textStyle: TextStyle(
-                                //             color: Colors.white,
-                                //             fontSize: 15,
-                                //           ),
-                                //         )),
-                                //   ),
-                                // ),
+                                  // Container(
+                                  //   width: MediaQuery.of(context).size.width/2.3,
+                                  //   padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+                                  //   decoration: BoxDecoration(
+                                  //     color: AppColors.primaryColor,
+                                  //     border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
+                                  //     borderRadius: BorderRadius.circular(10),
+                                  //   ),
+                                  //   child:  Center(
+                                  //     child: Text("TV",
+                                  //         style: GoogleFonts.poppins(
+                                  //           textStyle: TextStyle(
+                                  //             color: Colors.white,
+                                  //             fontSize: 15,
+                                  //           ),
+                                  //         )),
+                                  //   ),
+                                  // ),
 
-                              ],
-                            );
-                          }),
-                    ),
+                                ],
+                              ),
+                              Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: InkWell(
+                                      onTap: (){
+                                        setState(() {
+                                          print(facilitiesList.length);
+                                          facilitiesList.removeAt(index);
+                                          print(facilitiesList.length);
+                                        });
+                                      },
+                                      child: Image.asset(Images.cross,height: 24,width: 24,))),
+                            ],
+                          );
+                        }),
                     SizedBox(
                       height: 12,
                     ),

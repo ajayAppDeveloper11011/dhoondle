@@ -116,11 +116,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     errorWidget: (context, url, error) =>  Container(
                                       height: size.height*0.25,
                                       width: size.width,
-                                      padding: EdgeInsets.symmetric(horizontal: 20),
-                                      margin: EdgeInsets.symmetric(horizontal: 20),
+                                      // padding: EdgeInsets.symmetric(horizontal: 20),
+                                      // margin: EdgeInsets.symmetric(horizontal: 20),
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
-                                              image: AssetImage(Images.flat)
+                                              image: AssetImage(Images.coming_soon),fit: BoxFit.cover
                                           )
                                       ),
 
@@ -176,7 +176,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 InkWell(
                                     onTap: ()  {
-                                      _launchPhoneCall('+12026899719');
+
+                                      _launchPhoneCall(getPropertyList!.propertyList[index]!.mobile.toString());
                                     },
                                     child: Image.asset(Images.Telephone,height: size.height*0.04,)),
                                 SizedBox(
@@ -184,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 InkWell(
                                     onTap: () => {
-                                      launchWhatsApp()
+                                      launchWhatsApp(getPropertyList!.propertyList[index]!.mobile.toString())
                                     },
                                     child: Image.asset(Images.Whatsapp,height: size.height*0.04,))
                               ],
@@ -226,9 +227,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
-  launchWhatsApp() async {
+  launchWhatsApp(String phoneNumber) async {
     final link = WhatsAppUnilink(
-      phoneNumber: '+12026899719',
+      phoneNumber: '+91 ${phoneNumber}',
       text: "Hey! I'm inquiring about the apartment listing",
     );
     // Convert the WhatsAppUnilink instance to a string.
