@@ -1,3 +1,5 @@
+import 'package:dhoondle/src/constants/helper.dart';
+import 'package:dhoondle/src/features/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -55,7 +57,11 @@ class _TabbarScreenState extends State<TabbarScreen>
             actions: [
               Padding(
                 padding: const EdgeInsets.all(25),
-                child: Image.asset(Images.search,),
+                child: InkWell(
+                    onTap: (){
+                      Helper.moveToScreenwithPush(context, SearchScreen());
+                    },
+                    child: Image.asset(Images.search,)),
               ),
             ],
           ) ,

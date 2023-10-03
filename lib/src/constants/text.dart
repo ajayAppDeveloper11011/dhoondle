@@ -38,4 +38,5 @@ class TextScreen{
   static const add_property ='Add Property';
   static const add_service ='Add Service';
   static const privacy ='Privacy Policy';
+  static const search ='Search Property';
 }

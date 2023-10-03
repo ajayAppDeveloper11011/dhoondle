@@ -424,9 +424,11 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 5),
                           child: Container(
-                            height: 500,
+                            // height: 500,
                             width: size.width,
                             child: GridView.builder(
+                              shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
                                 gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
                                     maxCrossAxisExtent: 200,
                                     childAspectRatio: 2 / 1,
