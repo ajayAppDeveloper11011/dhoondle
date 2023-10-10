@@ -4,11 +4,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dhoondle/src/features/screens/property_details_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api_model/get_service_list_model.dart';
+import '../../api_model/mark_active_inactive_model.dart';
 import '../../constants/Api.dart';
 import '../../constants/colors.dart';
 import '../../constants/helper.dart';
@@ -30,14 +32,18 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
   GetMyServiceList? getServiceListApi;
   // final deleteController=Get.put(GetServiceListController());
   String service_id="";
+  bool isSwitchOn = false;
   bool _isVisible = false;
   bool _hasData = true;
   CommonModel?commonmodel;
+  MarkActiveInactiveModel?markActiveInactiveModel;
+   String number="";
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Helper.checkInternet(getmyservicelist());
+
   }
   @override
   Widget build(BuildContext context) {
@@ -74,6 +80,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                 itemCount: getServiceListApi!.serviceList!.length,
                 itemBuilder: (BuildContext context, int index) {
                   service_id=getServiceListApi!.serviceList![index].id.toString();
+                  number=getServiceListApi!.serviceList![index].number.toString();
                   return InkWell(
                     onTap: () => {
                       // Get.to(PropertyDetailsScreen(property_id: serviceController.getServiceListApi!.serviceList!.length.toString(),))
@@ -125,7 +132,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                                                 child: Image.asset(
                                                   Images.man,
                                                   height: 100,
-                                                  width: 100,
+                                                  width: 100,fit: BoxFit.cover,
                                                 )),
                                           ),
                                         ))
@@ -152,6 +159,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14
                                         ),),
+
                                         Container(
 
                                           child: Text(getServiceListApi!.serviceList![index].description.toString(), style: GoogleFonts.poppins(
@@ -161,8 +169,28 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
 
                                           ),overflow: TextOverflow.ellipsis,maxLines: 4,
                                           ),
-                                        )
-                                        ,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text("Experience:", style: GoogleFonts.poppins(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+
+                                            ),overflow: TextOverflow.ellipsis,maxLines: 4,
+                                            ),
+                                            Container(
+                                              child: Text( " ${getServiceListApi!.serviceList![index].yearsOfExperience.toString()} years" , style: GoogleFonts.poppins(
+                                                  color: Color(0xffA7A7A7),
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 14,
+
+                                              ),overflow: TextOverflow.ellipsis,maxLines: 4,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+
                                       ],
                                     ),
                                   )
@@ -174,16 +202,44 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    // Image.asset(
-                                    //   Images.eye,
-                                    //   height: size.height * 0.035,
-                                    // ),
-                                    // SizedBox(
-                                    //   width: 25,
-                                    // ),
+                                    InkWell(
+                                      onTap: () {
+                                        // service_id=getServiceListApi!.serviceList![index].id.toString();
+                                        // print("======service-id==========${service_id}");
+                                        // Helper.checkInternet(activeInactive(service_id));
+                                      },
+                                      child: Container(
+                                        width: 80,
+                                        height: 30,
+                                        child: FlutterSwitch(
+                                          activeTextColor: Colors.white,
+                                          activeColor: AppColors.primaryColor,
+                                          showOnOff: true,
+                                          activeText: "ON",
+                                          inactiveText: "OFF",
+                                          // activeToggleColor:AppColor.primaryColor ,
+                                          value:(getServiceListApi!.serviceList[index].isActive== "1")?false:true,
+                                          // value:
+                                          // (getServiceListApi!.serviceList[index].isActive.toString() == 1)?((markActiveInactiveModel!.isActive.toString() == 1)?false:true):true,
+                                          onToggle: (value) {
+                                            // isSwitchOn = value;
+                                            print("index=====${index.toString()}");
+                                            print("service=====${service_id}");
+                                                Helper.checkInternet(activeInactive(getServiceListApi!.serviceList![index].id.toString()));
+
+
+                                            setState(() {
+                                              // isSwitchOn=(getServiceListApi!.serviceList[index].isActive == "1")?false:true;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 25,
+                                    ),
                                     InkWell(
                                       onTap: (){
-
                                        Helper.moveToScreenwithPush(context,
                                            AddServiceScreen(
                                              serviceImage:getServiceListApi!.serviceList![index].image.toString(),
@@ -192,7 +248,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                                              service_des: getServiceListApi!.serviceList![index].description.toString(),
                                              address: getServiceListApi!.serviceList![index].address.toString(),
                                              number: getServiceListApi!.serviceList![index].number.toString(),
-                                             serviceCategory: getServiceListApi!.serviceList![index].id.toString(),
+                                             serviceCategory: getServiceListApi!.serviceList![index].id.toString(), experience: getServiceListApi!.serviceList![index].yearsOfExperience.toString(), whichscreen: 'Edit Service' ,
                                            ));
                                       },
                                       child: Image.asset(
@@ -241,7 +297,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
         backgroundColor: Colors.white,
         onPressed: () {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-              AddServiceScreen(service_id: '', service_name: '', service_des: '', number: '', address: '', serviceImage: '', serviceCategory: '',)));
+              AddServiceScreen(service_id: '', service_name: '', service_des: '', number: number, address: '', serviceImage: '', serviceCategory: '', experience: '', whichscreen: 'Add Service',)));
           // Add your action here
           // For example, you can navigate to another screen or perform some action.
           // Navigator.push(context, MaterialPageRoute(builder: (context) => NextScreen()));
@@ -392,6 +448,7 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
 
             setState(() {
               getServiceListApi = model;
+
             });
 
             // ToastMessage.msg(model.message.toString());
@@ -453,6 +510,67 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
               commonmodel = model;
               Helper.popScreen(context);
               Helper.checkInternet(getmyservicelist());
+            });
+
+            // ToastMessage.msg(model.message.toString());
+          } else {
+            setState(() {
+              _hasData = false;
+            });
+            setProgress(false);
+            print("false ### ============>");
+            ToastMessage.msg(model.message.toString());
+          }
+        } catch (e) {
+          _hasData = false;
+          print("false ============>");
+          ToastMessage.msg(StaticMessages.API_ERROR);
+          print('exception ==> ' + e.toString());
+        }
+      } else {
+        print("status code ==> " + res.statusCode.toString());
+        ToastMessage.msg(StaticMessages.API_ERROR);
+      }
+    } catch (e) {
+      _hasData = false;
+      ToastMessage.msg(StaticMessages.API_ERROR);
+      print('Exception ======> ' + e.toString());
+    }
+    setProgress(false);
+  }
+
+  Future<void> activeInactive(String service_id) async {
+    print("<=============activeInactive =============>");
+
+    final prefs = await SharedPreferences.getInstance();
+    var user_id=   await prefs.getString('user_id');
+
+    setProgress(true);
+    Map data = {
+      'user_id': user_id.toString(),
+      'id': service_id.toString(),
+    };
+
+    print("Request =============>" + data.toString());
+    try {
+      var res = await http.post(Uri.parse(Api.markMyserviceInactive), body: data);
+      print("Response ============>" + res.body);
+
+      if (res.statusCode == 200) {
+
+        try {
+          final jsonResponse = jsonDecode(res.body);
+          MarkActiveInactiveModel model = MarkActiveInactiveModel.fromJson(jsonResponse);
+
+          if (model.status == "true") {
+            print("Model status true");
+
+            setProgress(false);
+
+            setState(() {
+              markActiveInactiveModel = model;
+              // Helper.popScreen(context);
+               Helper.checkInternet(getmyservicelist());
             });
 
             // ToastMessage.msg(model.message.toString());

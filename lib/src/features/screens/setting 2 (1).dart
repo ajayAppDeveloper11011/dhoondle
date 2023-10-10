@@ -14,6 +14,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/helper.dart';
 import '../../constants/images.dart';
 
 
@@ -34,9 +35,14 @@ class _Setting2State extends State<Setting2> {
       appBar:AppBar(
         backgroundColor: AppColors.primaryColor,
         toolbarHeight: 80,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: Image.asset(Images.logo,height: 200,),
+        leading: InkWell(
+          onTap: () {
+            Helper.popScreen(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Icon(Icons.arrow_back,color: Colors.white,),
+          ),
         ),
         centerTitle: true,
         elevation: 0,

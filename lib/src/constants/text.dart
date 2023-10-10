@@ -39,4 +39,13 @@ class TextScreen{
   static const add_service ='Add Service';
   static const privacy ='Privacy Policy';
   static const search ='Search Property';
+  static const title ='Title';
+  static const description ='Description';
+  static const address ='Address';
+  static const phone ='Phone Number';
+  static const rent_price ='Rent Price';
+  static const room_type ='Room type';
+  static const facilities_add ='Facilities';
+  static const Categories ='Categories';
+  static const City ='City';
 }

@@ -127,6 +127,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
+
                               Helper.checkInternet(phoneCheckWithFirebase());
                             }
                             // if (loginController.isValid.value) {
@@ -324,8 +325,9 @@ class _LogInScreenState extends State<LogInScreen> {
     // final allData =
     // querySnapshot.docs.map((doc) => doc.get('phone')).toList();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-
+    print('all data length${allData.length}');
     if (allData.length==0) {
+
       //new code end
       //firebase otp code
       // String phone = "+" + countryCodeCreated + phoneController.text.trim();
@@ -361,7 +363,7 @@ class _LogInScreenState extends State<LogInScreen> {
     }
     else{
       FirebaseAuth.instance.signOut();
-      ToastMessage.msg("Phone number already registered, Please sign in");
+      ToastMessage.msg("No Account found, Please Register First");
       // Fluttertoast.showToast( msg:"");
        setProgress(false);
     }

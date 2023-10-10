@@ -39,7 +39,7 @@ class Data {
   String? serviceId;
   String? image;
   String? isActive;
-  List<ServiceImages>? serviceImages;
+  String? yearsOfExperience;
   String? rating;
   UserDetails? userDetails;
 
@@ -55,7 +55,7 @@ class Data {
         this.serviceId,
         this.image,
         this.isActive,
-        this.serviceImages,
+        this.yearsOfExperience,
         this.rating,
         this.userDetails});
 
@@ -71,12 +71,7 @@ class Data {
     serviceId = json['service_id'];
     image = json['image'];
     isActive = json['isActive'];
-    if (json['serviceImages'] != null) {
-      serviceImages = <ServiceImages>[];
-      json['serviceImages'].forEach((v) {
-        serviceImages!.add(new ServiceImages.fromJson(v));
-      });
-    }
+    yearsOfExperience = json['yearsOfExperience'];
     rating = json['rating'];
     userDetails = json['userDetails'] != null
         ? new UserDetails.fromJson(json['userDetails'])
@@ -96,42 +91,11 @@ class Data {
     data['service_id'] = this.serviceId;
     data['image'] = this.image;
     data['isActive'] = this.isActive;
-    if (this.serviceImages != null) {
-      data['serviceImages'] =
-          this.serviceImages!.map((v) => v.toJson()).toList();
-    }
+    data['yearsOfExperience'] = this.yearsOfExperience;
     data['rating'] = this.rating;
     if (this.userDetails != null) {
       data['userDetails'] = this.userDetails!.toJson();
     }
-    return data;
-  }
-}
-
-class ServiceImages {
-  String? id;
-  String? userId;
-  String? sId;
-  String? image;
-  String? timestamp;
-
-  ServiceImages({this.id, this.userId, this.sId, this.image, this.timestamp});
-
-  ServiceImages.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    sId = json['s_id'];
-    image = json['image'];
-    timestamp = json['timestamp'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['s_id'] = this.sId;
-    data['image'] = this.image;
-    data['timestamp'] = this.timestamp;
     return data;
   }
 }
@@ -147,6 +111,7 @@ class UserDetails {
   String? deviceToken;
   String? latitude;
   String? longitude;
+  String? isVerified;
 
   UserDetails(
       {this.userId,
@@ -158,7 +123,8 @@ class UserDetails {
         this.image,
         this.deviceToken,
         this.latitude,
-        this.longitude});
+        this.longitude,
+        this.isVerified});
 
   UserDetails.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
@@ -171,6 +137,7 @@ class UserDetails {
     deviceToken = json['device_token'];
     latitude = json['latitude'];
     longitude = json['longitude'];
+    isVerified = json['isVerified'];
   }
 
   Map<String, dynamic> toJson() {
@@ -185,6 +152,7 @@ class UserDetails {
     data['device_token'] = this.deviceToken;
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
+    data['isVerified'] = this.isVerified;
     return data;
   }
 }

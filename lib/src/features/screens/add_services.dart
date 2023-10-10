@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dhoondle/src/features/screens/property_screen.dart';
 import 'package:dhoondle/src/features/screens/services_tabbar.dart';
 import 'package:dhoondle/src/features/screens/setting%202%20(1).dart';
@@ -30,6 +29,8 @@ class AddServiceScreen extends StatefulWidget {
   String address="";
   String serviceImage;
   String serviceCategory;
+  String whichscreen;
+  String experience;
    AddServiceScreen({
      required this.service_id,
      required this.serviceCategory,
@@ -37,6 +38,9 @@ class AddServiceScreen extends StatefulWidget {
      required this.service_des,
      required this.number,required this.address,
      required this.serviceImage,
+     required this.experience,
+     required this.whichscreen,
+
    });
 
   @override
@@ -65,6 +69,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
   TextEditingController descriptioncontroller=TextEditingController();
   TextEditingController addresscontroller=TextEditingController();
   TextEditingController numbercontroller=TextEditingController();
+  TextEditingController experienceController=TextEditingController();
 
   String serviceid="";
   final _formKey = GlobalKey<FormState>();
@@ -91,18 +96,24 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         toolbarHeight: 80,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: ClipRect(
-            child: Image.asset(
-              Images.logo,
-              height: 200,
-            ),
+        leading: InkWell(
+          onTap: () {
+            Helper.popScreen(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Icon(Icons.arrow_back,color: Colors.white,),
           ),
         ),
         centerTitle: true,
         elevation: 0,
-        title: Text(TextScreen.add_service,
+        title: widget.whichscreen=="Add Service"?Text(TextScreen.add_service,
+            style: GoogleFonts.roboto(
+              textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500),
+            )):Text("Edit Service",
             style: GoogleFonts.roboto(
               textStyle: TextStyle(
                   color: Colors.white,
@@ -129,7 +140,18 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                 child: Form(
                   key: _formKey,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text("Add Service",
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                color: AppColors.textcolor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          )),
+                      SizedBox(
+                        height: 5,
+                      ),
                       Container(
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.symmetric(horizontal: 22, vertical: 6),
@@ -221,10 +243,24 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                       SizedBox(
                         height: 12,
                       ),
+                      Text(TextScreen.description,
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                color: AppColors.textcolor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          )),
+                      SizedBox(
+                        height: 5,
+                      ),
                       TextFormField(
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(250),
+                        ],
                          controller: descriptioncontroller,
+                        maxLines: 2,
                         //obscureText: true,
-                        decoration: InputDecoration(
+                    decoration: InputDecoration(
                           // fillColor: AppColors.addpropertyfillclr,
                           fillColor: Color(0xffEAEDF2),
                           filled: true,
@@ -276,9 +312,20 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                       SizedBox(
                         height: 12,
                       ),
+                      Text(TextScreen.phone,
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                color: AppColors.textcolor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          )),
+                      SizedBox(
+                        height: 5,
+                      ),
                       TextFormField(
                          controller: numbercontroller,
                         //obscureText: true,
+                          enabled: false,
                           keyboardType: TextInputType.number,
                           inputFormatters: [LengthLimitingTextInputFormatter(11)],
                         decoration: InputDecoration(
@@ -345,8 +392,15 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                       SizedBox(
                         height: 12,
                       ),
+                      Text(TextScreen.address,
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                color: AppColors.textcolor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          )),
                       SizedBox(
-                        height: 12,
+                        height: 5,
                       ),
                       TextFormField(
                          controller: addresscontroller,
@@ -401,131 +455,111 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                           }
                         },
                       ),
-                      // SizedBox(
-                      //   height: 12,
-                      // ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Container(
-                      //       width: MediaQuery.of(context).size.width/1.8,
-                      //       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                      //       decoration: BoxDecoration(
-                      //         color: Color(0xffEAEDF2),
-                      //         border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
-                      //         borderRadius: BorderRadius.circular(10),
-                      //       ),
-                      //       child:  Text("Facilities",
-                      //           style: GoogleFonts.poppins(
-                      //             textStyle: TextStyle(
-                      //               color: AppColors.txtgreyclr,
-                      //               fontSize: 15,
-                      //             ),
-                      //           )),
-                      //     ),
-                      //     Container(
-                      //       width: MediaQuery.of(context).size.width/3.1,
-                      //       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                      //       decoration: BoxDecoration(
-                      //         color: AppColors.primaryColor,
-                      //         border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
-                      //         borderRadius: BorderRadius.circular(10),
-                      //       ),
-                      //       child:  Center(
-                      //         child: Text("Add",
-                      //             style: GoogleFonts.poppins(
-                      //               textStyle: TextStyle(
-                      //                 color: Colors.white,
-                      //                 fontSize: 15,
-                      //               ),
-                      //             )),
-                      //       ),
-                      //     ),
-                      //
-                      //   ],
-                      // ),
-                      // SizedBox(
-                      //   height: 12,
-                      // ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Container(
-                      //       width: MediaQuery.of(context).size.width/2.3,
-                      //       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                      //       decoration: BoxDecoration(
-                      //         color: AppColors.primaryColor,
-                      //         border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
-                      //         borderRadius: BorderRadius.circular(10),
-                      //       ),
-                      //       child:  Center(
-                      //         child: Text("AC",
-                      //             style: GoogleFonts.poppins(
-                      //               textStyle: TextStyle(
-                      //                 color: Colors.white,
-                      //                 fontSize: 15,
-                      //               ),
-                      //             )),
-                      //       ),
-                      //     ),
-                      //     Container(
-                      //       width: MediaQuery.of(context).size.width/2.3,
-                      //       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                      //       decoration: BoxDecoration(
-                      //         color: AppColors.primaryColor,
-                      //         border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
-                      //         borderRadius: BorderRadius.circular(10),
-                      //       ),
-                      //       child:  Center(
-                      //         child: Text("TV",
-                      //             style: GoogleFonts.poppins(
-                      //               textStyle: TextStyle(
-                      //                 color: Colors.white,
-                      //                 fontSize: 15,
-                      //               ),
-                      //             )),
-                      //       ),
-                      //     ),
-                      //
-                      //   ],
-                      // ),
+
                       SizedBox(
                         height: 12,
                       ),
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: (){
-                              _showPicker(context);
-                            },
-                            child: Container(
-                              height: MediaQuery.of(context).size.height*0.15,
-                              width: MediaQuery.of(context).size.width/3,
-                              padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                              decoration: BoxDecoration(
-                                // color: AppColors.primaryColor,
-                                border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child:  Center(
-                                  child: Icon(Icons.add,size: 50,color: AppColors.primaryColor,)
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text("Add Images of \nyour previous work",
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                    color: Color(0xffB2B2B2),
-                                    fontSize: 14,fontWeight: FontWeight.w300
-                                ),
-                              )),
-
-                        ],
+                      Text("Years of Experience",
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                color: AppColors.textcolor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          )),
+                      SizedBox(
+                        height: 5,
                       ),
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: experienceController,
+                        //obscureText: true,
+                        decoration: InputDecoration(
+                          // fillColor: AppColors.addpropertyfillclr,
+                          fillColor: Color(0xffEAEDF2),
+                          filled: true,
+                          hintText: "Experience",
+                          contentPadding:
+                          EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+                          hintStyle: GoogleFonts.poppins(
+                              color: AppColors.txtgreyclr, fontSize: 15),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                                width: 1, color: AppColors.addpropertyfillclr),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                                width: 1, color: AppColors.addpropertyfillclr),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                                width: 1, color: AppColors.addpropertyfillclr),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                width: 1,
+                              )),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.addpropertyfillclr)),
+                          focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.addpropertyfillclr)),
+                          // border: OutlineInputBorder(
+                          //     borderRadius: BorderRadius.circular(20),
+                          //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
+                          // )
+                        ),
+                        validator: (value){
+                          if(value!.isEmpty){ return "Please enter your address";
+                          }
+                          else if(value.length < 8){
+                            ToastMessage.msg("password must be of 8 digit");
+                          }
+                        },
+                      ),
+
+                      // images  addd
+
+                      // Row(
+                      //   // mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     InkWell(
+                      //       onTap: (){
+                      //         _showPicker(context);
+                      //       },
+                      //       child: Container(
+                      //         height: MediaQuery.of(context).size.height*0.15,
+                      //         width: MediaQuery.of(context).size.width/3,
+                      //         padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+                      //         decoration: BoxDecoration(
+                      //           // color: AppColors.primaryColor,
+                      //           border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
+                      //           borderRadius: BorderRadius.circular(10),
+                      //         ),
+                      //         child:  Center(
+                      //             child: Icon(Icons.add,size: 50,color: AppColors.primaryColor,)
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: 12,
+                      //     ),
+                      //     Text("Add Images of \nyour previous work",
+                      //         style: GoogleFonts.poppins(
+                      //           textStyle: TextStyle(
+                      //               color: Color(0xffB2B2B2),
+                      //               fontSize: 14,fontWeight: FontWeight.w300
+                      //           ),
+                      //         )),
+                      //
+                      //   ],
+                      // ),
                       SizedBox(
                         height: 12,
                       ),
@@ -730,6 +764,8 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
               serviceListApiModel = model;
               if(widget.service_name ==""){
                 selectedOption="3";
+
+                selectedKey="Plumber";
               }else{
                 // selectedOption = widget.service_id.toString();
               }
@@ -788,6 +824,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
     'number':numbercontroller.text.toString(),
     'amount':"500",
     'address':addresscontroller.text.toString(),
+    'yearsOfExperience':experienceController.text.toString(),
     'image':imageList.toString()
     };
 
@@ -909,6 +946,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
       'number':numbercontroller.text.toString(),
       'amount':"500",
       'address':addresscontroller.text.toString(),
+      'yearsOfExperience':experienceController.text.toString(),
       'image':imageList.toString()
     };
 
@@ -931,8 +969,8 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
             setState(() {
               _editServiceModel = model;
             });
-
-            Helper.moveToScreenwithPushreplaceemt(context, ServicesTabbar());
+            // Helper.moveToScreenwithRoutClear(context, ServicesTabbar());
+             Helper.moveToScreenwithPushreplaceemt(context, ServicesTabbar());
             // ToastMessage.msg(model.message.toString());
           } else {
             // setState(() {
@@ -966,6 +1004,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
 
     setState(() {
       descriptioncontroller.text = widget.service_des.toString();
+      experienceController.text = widget.experience.toString();
       numbercontroller.text = widget.number.toString();
       addresscontroller.text = widget.address.toString();
       selectedOption = widget.service_id.toString();
@@ -973,6 +1012,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
       getImage= widget.serviceImage.toString();
       print("selectedOption====${ selectedOption.toString()}");
       print("selectedKey====${ selectedKey.toString()}");
+      print("number===========${widget.number}");
     });
  }
 

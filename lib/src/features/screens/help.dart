@@ -30,13 +30,13 @@ class _HelpScreenState extends State<HelpScreen> {
         appBar: AppBar(
           backgroundColor: AppColors.primaryColor,
           toolbarHeight: 80,
-          leading: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            child: ClipRect(
-              child: Image.asset(
-                Images.logo,
-                height: 200,
-              ),
+          leading: InkWell(
+            onTap: () {
+              Helper.popScreen(context);
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              child: Icon(Icons.arrow_back,color: Colors.white,),
             ),
           ),
           centerTitle: true,
@@ -145,8 +145,25 @@ class _HelpScreenState extends State<HelpScreen> {
                           onTap: () {
                             setState(() {
                               _isselect="4";
-                              Helper.moveToScreenwithPush(context, Aboutscreen());
-                            });
+                              String? encodeQueryParameters(Map<String, String> params) {
+                                return params.entries
+                                    .map((MapEntry<String, String> e) =>
+                                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                                    .join('&');
+                              }
+// ···
+                              final Uri emailLaunchUri = Uri(
+                                scheme: 'mailto',
+                                path: 'dhoondlehelpline@gmail.com',
+                                query: encodeQueryParameters(<String, String>{
+                                  'subject': '',
+                                }),
+                              );
+
+                              launchUrl(emailLaunchUri);
+                              // Helper.moveToScreenwithPush(context, Aboutscreen());
+                            }
+                            );
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
@@ -158,7 +175,8 @@ class _HelpScreenState extends State<HelpScreen> {
                             ),
                             child: Column(
                               children: [
-                                Image.asset(Images.aboutus,height: 70,width: 50,),
+                                // Icon(Icons.email,size: 70,color: Colors.blue,),
+                                 Image.asset(Images.email_help,height: 70,width: 50,),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -341,6 +359,39 @@ class _HelpScreenState extends State<HelpScreen> {
       print(' could not launch $command');
     }
   }
+
+  // _sendMail() async {
+  //   final Uri emailUri = Uri(
+  //     scheme: 'mailto',
+  //     path: 'urvashi.ixora@gmail.com',
+  //     query: encodeQueryParameters(<String, String>{
+  //       'subject': 'Example Subject & Symbols are allowed!',
+  //     }),
+  //   );
+  //
+  //   launchUrl(emailUri);
+  //
+  //
+  //   if (await canLaunch(emailUri.toString())) {
+  //     await launch(emailUri.toString());
+  //   } else {
+  //     throw 'Could not launch $emailUri';
+  //   }
+  // }
+  //
+  // encodeQueryParameters(Map<String, String> map) {
+  //   return params.entries
+  //       .map((MapEntry<String, String> e) =>
+  //   '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+  //       .join('&');
+  // }
+
+
+
+
+
+
+
 
 
 }

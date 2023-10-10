@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/helper.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
 
@@ -19,13 +20,13 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         toolbarHeight: 80,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: ClipRect(
-            child: Image.asset(
-              Images.logo,
-              height: 200,
-            ),
+        leading: InkWell(
+          onTap: () {
+            Helper.popScreen(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Icon(Icons.arrow_back,color: Colors.white,),
           ),
         ),
         centerTitle: true,

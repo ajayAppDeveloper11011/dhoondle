@@ -35,10 +35,10 @@ class ServiceListDesign extends StatelessWidget {
       )
           : GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
+              crossAxisCount: 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 15,
-              childAspectRatio: 2 / 2.8),
+              childAspectRatio: 2 / 2),
           itemCount: serviceController.serviceListApiModel!.serviceList!.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(

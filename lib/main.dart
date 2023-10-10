@@ -19,17 +19,16 @@ import 'package:dhoondle/src/features/screens/tabbar_screen.dart';
 import 'package:dhoondle/src/registration/log_in_screen.dart';
 import 'package:dhoondle/src/registration/otp_screen.dart';
 import 'package:dhoondle/src/registration/signup.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    // options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  runApp( MyApp());
+  await Firebase.initializeApp();
+  await FirebaseAppCheck.instance.activate();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -58,7 +57,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/addpropertynew', page: () => AddPropertynew()),
         GetPage(name: '/setting3', page: () => Setting3()),
         GetPage(name: '/setting2', page: () => Setting2()),
-        GetPage(name: '/addservice', page: () => AddServiceScreen(service_id: '', service_name: '', service_des: '', number: '', address: '', serviceImage: '', serviceCategory: '',)),
+        GetPage(name: '/addservice', page: () => AddServiceScreen(service_id: '', service_name: '', service_des: '', number: '', address: '', serviceImage: '', serviceCategory: '', experience: '', whichscreen: '',)),
         GetPage(name: '/plumber', page: () => PlumberScreen()),
         GetPage(name: '/propertyscreen', page: () => PropertyScreen()),
         GetPage(name: '/Policy', page: () => PrivacyPolicyScreen()),

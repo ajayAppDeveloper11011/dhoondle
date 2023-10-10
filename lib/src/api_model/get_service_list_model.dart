@@ -1,85 +1,93 @@
+// To parse this JSON data, do
+//
+//     final getMyServiceList = getMyServiceListFromJson(jsonString);
+
+import 'dart:convert';
+
+GetMyServiceList getMyServiceListFromJson(String str) => GetMyServiceList.fromJson(json.decode(str));
+
+String getMyServiceListToJson(GetMyServiceList data) => json.encode(data.toJson());
+
 class GetMyServiceList {
-  String? status;
-  String? message;
-  List<ServiceList>? serviceList;
+  String status;
+  String message;
+  List<ServiceList> serviceList;
 
-  GetMyServiceList({this.status, this.message, this.serviceList});
+  GetMyServiceList({
+    required this.status,
+    required this.message,
+    required this.serviceList,
+  });
 
-  GetMyServiceList.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    message = json['message'];
-    if (json['serviceList'] != null) {
-      serviceList = <ServiceList>[];
-      json['serviceList'].forEach((v) {
-        serviceList!.add(new ServiceList.fromJson(v));
-      });
-    }
-  }
+  factory GetMyServiceList.fromJson(Map<String, dynamic> json) => GetMyServiceList(
+    status: json["status"],
+    message: json["message"],
+    serviceList: List<ServiceList>.from(json["serviceList"].map((x) => ServiceList.fromJson(x))),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.serviceList != null) {
-      data['serviceList'] = this.serviceList!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "message": message,
+    "serviceList": List<dynamic>.from(serviceList.map((x) => x.toJson())),
+  };
 }
 
 class ServiceList {
-  String? id;
-  String? userId;
-  String? service;
-  String? amount;
-  String? timestamp;
-  String? number;
-  String? description;
-  String? address;
-  String? serviceId;
-  String? image;
-  String? isActive;
+  String id;
+  String userId;
+  String service;
+  String amount;
+  DateTime timestamp;
+  String number;
+  String description;
+  String address;
+  String serviceId;
+  String image;
+  String isActive;
+  String yearsOfExperience;
 
-  ServiceList(
-      {this.id,
-        this.userId,
-        this.service,
-        this.amount,
-        this.timestamp,
-        this.number,
-        this.description,
-        this.address,
-        this.serviceId,
-        this.image,
-        this.isActive});
+  ServiceList({
+    required this.id,
+    required this.userId,
+    required this.service,
+    required this.amount,
+    required this.timestamp,
+    required this.number,
+    required this.description,
+    required this.address,
+    required this.serviceId,
+    required this.image,
+    required this.isActive,
+    required this.yearsOfExperience,
+  });
 
-  ServiceList.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    service = json['service'];
-    amount = json['amount'];
-    timestamp = json['timestamp'];
-    number = json['number'];
-    description = json['description'];
-    address = json['address'];
-    serviceId = json['service_id'];
-    image = json['image'];
-    isActive = json['isActive'];
-  }
+  factory ServiceList.fromJson(Map<String, dynamic> json) => ServiceList(
+    id: json["id"],
+    userId: json["user_id"],
+    service: json["service"],
+    amount: json["amount"],
+    timestamp: DateTime.parse(json["timestamp"]),
+    number: json["number"],
+    description: json["description"],
+    address: json["address"],
+    serviceId: json["service_id"],
+    image: json["image"],
+    isActive: json["isActive"],
+    yearsOfExperience: json["yearsOfExperience"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['service'] = this.service;
-    data['amount'] = this.amount;
-    data['timestamp'] = this.timestamp;
-    data['number'] = this.number;
-    data['description'] = this.description;
-    data['address'] = this.address;
-    data['service_id'] = this.serviceId;
-    data['image'] = this.image;
-    data['isActive'] = this.isActive;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "user_id": userId,
+    "service": service,
+    "amount": amount,
+    "timestamp": timestamp.toIso8601String(),
+    "number": number,
+    "description": description,
+    "address": address,
+    "service_id": serviceId,
+    "image": image,
+    "isActive": isActive,
+    "yearsOfExperience": yearsOfExperience,
+  };
 }

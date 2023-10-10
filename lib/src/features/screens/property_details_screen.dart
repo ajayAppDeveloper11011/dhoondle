@@ -57,13 +57,13 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         toolbarHeight: 80,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: ClipRect(
-            child: Image.asset(
-              Images.logo,
-              height: 200,
-            ),
+        leading: InkWell(
+          onTap: () {
+            Helper.popScreen(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Icon(Icons.arrow_back,color: Colors.white,),
           ),
         ),
         centerTitle: true,
@@ -103,7 +103,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
         getPropertyDetailModel==null?Container(
           height: size.height,
           width: size.width,
-          child: Text("No data found"),
+          child: Center(child: Text("No data found")),
         ):  Container(
               height: size.height,
               width: size.width,
@@ -422,46 +422,98 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
 
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 5),
+                                  horizontal: 20.0, vertical: 5),
                           child: Container(
-                            // height: 500,
-                            width: size.width,
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 200,
-                                    childAspectRatio: 2 / 1,
-                                    crossAxisSpacing: 20,
-                                    mainAxisSpacing: 20),
+                            width:MediaQuery.of(context).size.width ,
+                            height: 58,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
                                 itemCount: getPropertyDetailModel!.propertyFacility!.length,
-                                itemBuilder: (BuildContext ctx, index) {
-                                  return Container(
-                                    height: 20,
-                                    width: 120,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: Colors.amber,
-                                        borderRadius: BorderRadius.circular(15)),
-                                    child:    Container(
-                                      decoration: BoxDecoration(
-                                          color: Color(0xffF46060),
-                                          borderRadius: BorderRadius.circular(15)
-                                      ),
-                                      child:  Center(
-                                        child: Text(
-                                          getPropertyDetailModel!.propertyFacility![index].facility.toString(),
-                                          style: GoogleFonts.roboto(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Stack(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(right: 10),
+                                        // width: MediaQuery.of(context).size.width/2.5,
+                                        width: 220,
+                                        height: 58,
+                                        padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.primaryColor,
+                                          border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child:  Center(
+                                          child: Text( getPropertyDetailModel!.propertyFacility![index].facility.toString(),
+                                              style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                ),
+                                              )),
                                         ),
                                       ),
-                                    ),
+                                      // Positioned(
+                                      //     top: 0,
+                                      //     right: 0,
+                                      //     child: InkWell(
+                                      //         onTap: (){
+                                      //           setState(() {
+                                      //             print(getPropertyDetailModel!.propertyFacility![index].length);
+                                      //             facilitiesList.removeAt(index);
+                                      //             print(facilitiesList.length);
+                                      //           });
+                                      //         },
+                                      //         child: Image.asset(Images.cross,height: 24,width: 24,))),
+                                    ],
                                   );
                                 }),
                           ),
                         ),
+
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(
+                        //       horizontal: 20.0, vertical: 5),
+                        //   child: Container(
+                        //     // height: 500,
+                        //     width: size.width,
+                        //     child: GridView.builder(
+                        //       shrinkWrap: true,
+                        //         physics: NeverScrollableScrollPhysics(),
+                        //         gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
+                        //             maxCrossAxisExtent: 200,
+                        //             childAspectRatio: 2 / 1,
+                        //             crossAxisSpacing: 20,
+                        //             mainAxisSpacing: 20),
+                        //         itemCount: getPropertyDetailModel!.propertyFacility!.length,
+                        //         itemBuilder: (BuildContext ctx, index) {
+                        //           return Container(
+                        //             height: 20,
+                        //             width: 120,
+                        //             alignment: Alignment.center,
+                        //             decoration: BoxDecoration(
+                        //                 color: Colors.amber,
+                        //                 borderRadius: BorderRadius.circular(15)),
+                        //             child:    Container(
+                        //               decoration: BoxDecoration(
+                        //                   color: Color(0xffF46060),
+                        //                   borderRadius: BorderRadius.circular(15)
+                        //               ),
+                        //               child:  Center(
+                        //                 child: Text(
+                        //                   getPropertyDetailModel!.propertyFacility![index].facility.toString(),
+                        //                   style: GoogleFonts.roboto(
+                        //                       color: Colors.white,
+                        //                       fontWeight: FontWeight.w500,
+                        //                       fontSize: 16),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           );
+                        //         }),
+                        //   ),
+                        // ),
                         SizedBox(
                           height: size.height*0.1,
                         )
@@ -514,7 +566,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
 
 
   _launchPhoneCall(String phoneNumber) async {
-    final url = 'tel:$phoneNumber';
+    final url = 'tel:+91 $phoneNumber';
     if (await canLaunch(url)) {
       await launch(url);
     } else {

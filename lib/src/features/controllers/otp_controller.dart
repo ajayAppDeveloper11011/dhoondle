@@ -32,6 +32,8 @@ class OtpController extends GetxController{
       if(response.statusCode == 200){
         // Get.snackbar('Your otp is', otpController.value.text.toString());
 
+
+
         if(data['status']== 'true'){
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('user_id', data['data']['user_id'].toString());

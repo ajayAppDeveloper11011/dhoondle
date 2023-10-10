@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -41,6 +42,35 @@ class _OtpScreenState extends State<OtpScreen> {
   final _formKey = GlobalKey<FormState>();
   var number= Get.arguments;
   bool _isVisible = false;
+  Timer? _timer;
+  int _start = 60;
+  bool resend_visible=false;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            resend_visible=true;
+            timer.cancel();
+
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    startTimer();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,14 +182,102 @@ class _OtpScreenState extends State<OtpScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      "OTP expires in : 53 sec",
-                      style: GoogleFonts.poppins(
-                        textStyle: Theme.of(context).textTheme.displayLarge,
-                        fontSize: 19,
-                        color: Color(0xff1D1D1D),
-                        fontWeight: FontWeight.w400,
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Text("Didn’t receive any code? ",
+                          //   style: GoogleFonts.poppins(
+                          //       color: Color(0xFFDEDEDE),
+                          //       fontSize: 13,
+                          //       fontWeight: FontWeight.w600
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   width: 2,
+                          // ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(5.0),
+                          //   child: Row(
+                          //     crossAxisAlignment: CrossAxisAlignment.center,
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Text("Didn’t receive any code? ",
+                          //         style: GoogleFonts.poppins(
+                          //             color:  AppColors.primaryColor,
+                          //             fontSize: 13,
+                          //             fontWeight: FontWeight.w600
+                          //         ),
+                          //       ),
+                          //       SizedBox(
+                          //         width: 2,
+                          //       ),
+                          //       InkWell(
+                          //
+                          //           onTap:
+                          //           _start==0
+                          //               ? () {
+                          //             _start=300;
+                          //             startTimer();
+                          //             print("resend botton called");
+                          //             resendVerificationCode("+91"+widget.number, widget.forceResendingToken);
+                          //           }
+                          //               :null,
+                          //           child:_start==0? Visibility(
+                          //             visible: true,
+                          //             maintainAnimation: true,
+                          //             maintainSize: true,
+                          //             maintainState: true,
+                          //             child:  Text("Resend Again",
+                          //               style: GoogleFonts.poppins(
+                          //                   color:  AppColors.primaryColor,
+                          //                   fontSize: 13,
+                          //                   fontWeight: FontWeight.bold
+                          //               ),
+                          //             ),
+                          //           )
+                          //               :Visibility(
+                          //             visible: true,
+                          //             maintainAnimation: true,
+                          //             maintainSize: true,
+                          //             maintainState: true,
+                          //             child:  Text("Resend Again",
+                          //               style: GoogleFonts.poppins(
+                          //                   color:  AppColors.primaryColor,
+                          //                   fontSize: 13,
+                          //                   fontWeight: FontWeight.w500
+                          //               ),
+                          //             ),
+                          //           )
+                          //       ),
+                          //
+                          //     ],
+                          //   ),
+                          // ),
+
+                        ],
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Otp expires in :",
+                          style: GoogleFonts.poppins(
+                              color: Color(0xff1D1D1D),
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400
+                          ),
+                        ),
+                        Text('${(_start/60).floor()}'.padLeft(2, '0')+':'+'${_start%60}'.padLeft(2, '0') + "${" mins"}" ,
+                          style: GoogleFonts.poppins(
+                              color: Color(0xff1D1D1D),
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400
+                          ),),
+
+                      ],
                     ),
                     SizedBox(
                       height: 40,
@@ -183,15 +301,47 @@ class _OtpScreenState extends State<OtpScreen> {
                             style: GoogleFonts.roboto(
                                 fontSize: 18,
                                 color: AppColors.ButtonTextColor,
-                                fontWeight: FontWeight.w500))),
+                                fontWeight: FontWeight.w500))
+                    ),
                     SizedBox(
                       height: 30,
                     ),
-                    Text("Resend",
-                        style: GoogleFonts.roboto(
-                            fontSize: 20,
-                            color: AppColors.HeaderTextColor,
-                            fontWeight: FontWeight.w500)),
+                    InkWell(
+
+                        onTap:
+                        _start==0
+                            ? () {
+                          _start=300;
+                          startTimer();
+                          print("resend botton called");
+                          resendVerificationCode("+91"+widget.number, widget.forceResendingToken);
+                        }
+                            :null,
+                        child:_start==0? Visibility(
+                          visible: true,
+                          maintainAnimation: true,
+                          maintainSize: true,
+                          maintainState: true,
+                          child:  Text("Resend",
+                              style: GoogleFonts.roboto(
+                                  fontSize: 20,
+                                  color: Color(0xff1D1D1D),
+                                  fontWeight: FontWeight.w500)
+                          ),
+                        )
+                            :Visibility(
+                          visible: true,
+                          maintainAnimation: true,
+                          maintainSize: true,
+                          maintainState: true,
+                          child:  Text("Resend",
+                              style: GoogleFonts.roboto(
+                                  fontSize: 20,
+                                  color: Color(0xff1D1D1D),
+                                  fontWeight: FontWeight.w500)
+                          ),
+                        )
+                    ),
                   ],
                 ),
               ),

@@ -2,6 +2,7 @@
 
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dhoondle/src/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_native/flutter_rating_native.dart';
@@ -55,37 +56,40 @@ class ServiceDetailDesign extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                CachedNetworkImage(
-                                  imageUrl:  servicedetailController.serviceDetailModel!.data![index].userDetails!.image.toString(),
-                                  fit: BoxFit.fill,
-                                  width: 90,
-                                  height: 90,
-                                  placeholder: (context, url) =>
-                                      LinearProgressIndicator(
-                                        color: Colors.white.withOpacity(0.2),
-                                        backgroundColor:
-                                        Colors.white.withOpacity(.5),
-                                      ),
-                                  errorWidget: (context, url, error) =>
-                                      Container(
-                                        width: 80,
-                                        height: 80,
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
-                                          // color: Color(0xFFD9D9D9),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: CachedNetworkImage(
+                                    imageUrl:  servicedetailController.serviceDetailModel!.data![index].userDetails!.image.toString(),
+                                    fit: BoxFit.fill,
+                                    width: 120,
+                                    height: MediaQuery.of(context).size.height * 0.145,
+                                    placeholder: (context, url) =>
+                                        LinearProgressIndicator(
+                                          color: Colors.white.withOpacity(0.2),
+                                          backgroundColor:
+                                          Colors.white.withOpacity(.5),
                                         ),
-                                        child: Center(
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(20),
-                                              child: Image.asset(
-                                                Images.profile_new,
-                                                height: 100,
-                                                width: 100,
-                                              ),
-                                            )),
-                                      ),
+                                    errorWidget: (context, url, error) =>
+                                        Container(
+                                          width: 100,
+                                          height: 100,
+                                          decoration:  BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                            border: Border.all(color: Colors.grey)
+                                            // color: Color(0xFFD9D9D9),
+                                          ),
+                                          child: Center(
+                                              child: ClipOval(
+                                                child: Image.asset(
+                                                  Images.man,
+                                                  height: 80,
+                                                  width: 80,fit: BoxFit.cover,
+                                                ),
+                                              )),
+                                        ),
+                                  ),
                                 ),
 
                                 // Image.asset(ProjectImage.profile,height: 102,width: 120,),
@@ -98,104 +102,127 @@ class ServiceDetailDesign extends StatelessWidget {
                                   mainAxisAlignment:
                                   MainAxisAlignment.center,
                                   children: [
-                                    Text(  servicedetailController.serviceDetailModel!.data![index].userDetails!.name.toString(),
-                                        style: GoogleFonts.poppins(
-                                          textStyle: TextStyle(
-                                              color: Color(0xff4C4C4C),
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                    SizedBox(
-                                      height: 5,
+                                    Container(
+                                      width: 120,
+                                      child: Text(  servicedetailController.serviceDetailModel!.data![index].userDetails!.name.toString(),overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                                color: Color(0xff4C4C4C),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500),
+                                          )),
                                     ),
+                                    Text( "${ servicedetailController.serviceDetailModel!.data![index].yearsOfExperience.toString()} years",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color:Colors.black)),
+                                    // SizedBox(
+                                    //   height: 0,
+                                    // ),
                                     Text(  servicedetailController.serviceDetailModel!.data![index].service.toString(),
                                         style: GoogleFonts.poppins(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w400,
                                             color: Color(0xff4C4C4C))),
-                                    Row(
-                                      children: [
-                                        FlutterRating(
-                                          rating: double.parse(servicedetailController.serviceDetailModel!.data![index].rating.toString()??"0"),
-                                          starCount: 5,
-                                          borderColor: Colors.yellow,
-                                          color: Color(0xffFFC121),
-                                          allowHalfRating: true,
-                                          size: 20,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          onRatingChanged: (rating) {
-                                            print(rating);
-                                          },
-                                        ),
-                                        SizedBox(width: 5,),
 
-                                        // RatingBar.builder(
-                                        //   unratedColor: ,
-                                        //   initialRating: 4,
-                                        //   minRating: 1,
-                                        //   direction: Axis.horizontal,
-                                        //   allowHalfRating: true,
-                                        //   itemCount: 5, itemSize: MediaQuery.of(context).size.height*0.03,
-                                        //   itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                                        //   itemBuilder: (context, _) => Icon(
-                                        //     Icons.star,
-                                        //     size: 10,
-                                        //     color: Color(0xffFFC121),
-                                        //   ),
-                                        //   onRatingUpdate: (rating) {
-                                        //     print(rating);
-                                        //   },
-                                        // ),
-                                        //  Image.asset(ProjectImage.star),
-                                        Text(
-                                          servicedetailController.serviceDetailModel!.data![index].rating.toString(),
+                                    Container(
+                                      width: 120,
+                                      child: Text(  servicedetailController.serviceDetailModel!.data![index].description.toString(),overflow: TextOverflow.clip,maxLines: 3,
                                           style: GoogleFonts.poppins(
-                                              color: Color(0xff4E4E4E),
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 13),
-                                        )
-                                      ],
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w300,
+                                              color: Color(0xff4C4C4C))),
                                     ),
+
+                                    // Row(
+                                    //   children: [
+                                    //     FlutterRating(
+                                    //       rating: double.parse(servicedetailController.serviceDetailModel!.data![index].rating.toString()??"0"),
+                                    //       starCount: 5,
+                                    //       borderColor: Colors.yellow,
+                                    //       color: Color(0xffFFC121),
+                                    //       allowHalfRating: true,
+                                    //       size: 20,
+                                    //       mainAxisAlignment:
+                                    //       MainAxisAlignment.center,
+                                    //       onRatingChanged: (rating) {
+                                    //         print(rating);
+                                    //       },
+                                    //     ),
+                                    //     SizedBox(width: 5,),
+                                    //
+                                    //     // RatingBar.builder(
+                                    //     //   unratedColor: ,
+                                    //     //   initialRating: 4,
+                                    //     //   minRating: 1,
+                                    //     //   direction: Axis.horizontal,
+                                    //     //   allowHalfRating: true,
+                                    //     //   itemCount: 5, itemSize: MediaQuery.of(context).size.height*0.03,
+                                    //     //   itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                                    //     //   itemBuilder: (context, _) => Icon(
+                                    //     //     Icons.star,
+                                    //     //     size: 10,
+                                    //     //     color: Color(0xffFFC121),
+                                    //     //   ),
+                                    //     //   onRatingUpdate: (rating) {
+                                    //     //     print(rating);
+                                    //     //   },
+                                    //     // ),
+                                    //     //  Image.asset(ProjectImage.star),
+                                    //     Text(
+                                    //       servicedetailController.serviceDetailModel!.data![index].rating.toString(),
+                                    //       style: GoogleFonts.poppins(
+                                    //           color: Color(0xff4E4E4E),
+                                    //           fontWeight: FontWeight.w700,
+                                    //           fontSize: 13),
+                                    //     )
+                                    //   ],
+                                    // ),
                                   ],
                                 ),
                               ],
                             ),
-                Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 20),
+                  child: Container(
+                    child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
 
 
 
-                                InkWell(
-                                  onTap: ()  {
-                             _launchPhoneCall( servicedetailController.serviceDetailModel!.data![index].number.toString());
+                                    InkWell(
+                                      onTap: ()  {
+                                 _launchPhoneCall( servicedetailController.serviceDetailModel!.data![index].number.toString());
 
-                                  },
-                                  child: Image.asset(
-                                    Images.Telephone,
-                                    height: 32,
-                                    width: 32,
-                                  ),
+                                      },
+                                      child: Image.asset(
+                                        Images.Telephone,
+                                        height: 32,
+                                        width: 32,
+                                      ),
+                                    ),
+
+
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    InkWell(
+                                      onTap: () => {
+                                        launchWhatsApp(servicedetailController.serviceDetailModel!.data![index].number.toString())
+                                      },
+                                      child: Image.asset(
+                                        Images.Whatsapp,
+                                        height: 32,
+                                        width: 32,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-
-
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                InkWell(
-                                  onTap: () => {
-                                    launchWhatsApp(servicedetailController.serviceDetailModel!.data![index].number.toString())
-                                  },
-                                  child: Image.asset(
-                                    Images.Whatsapp,
-                                    height: 32,
-                                    width: 32,
-                                  ),
-                                ),
-                              ],
-                            )
+                  ),
+                )
                           ],
                         ),
                       ),
@@ -208,9 +235,8 @@ class ServiceDetailDesign extends StatelessWidget {
     ));
   }
 
-
    _launchPhoneCall(String phoneNumber) async {
-     final url = 'tel:$phoneNumber';
+     final url = 'tel:+91 $phoneNumber';
      if (await canLaunch(url)) {
        await launch(url);
      } else {
@@ -221,7 +247,7 @@ class ServiceDetailDesign extends StatelessWidget {
 
    launchWhatsApp(String phoneNumber) async {
      final link = WhatsAppUnilink(
-       phoneNumber: phoneNumber,
+       phoneNumber: '+91 ${phoneNumber}',
        text: "Hey! I'm inquiring about the apartment listing",
      );
      // Convert the WhatsAppUnilink instance to a string.

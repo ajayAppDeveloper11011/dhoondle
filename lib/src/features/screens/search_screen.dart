@@ -53,9 +53,14 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar:AppBar(
         backgroundColor: AppColors.primaryColor,
         toolbarHeight: 80,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: Image.asset(Images.logo,height: 200,),
+        leading: InkWell(
+          onTap: () {
+            Helper.popScreen(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Icon(Icons.arrow_back,color: Colors.white,),
+          ),
         ),
         centerTitle: true,
         elevation: 0,
@@ -162,8 +167,12 @@ class _SearchScreenState extends State<SearchScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () => {
+                    /*      Get.to(PropertyDetailsScreen(
+                            property_id:getPropertyList!.propertyList[index].propertyId.toString(),))  */
+
                           Get.to(PropertyDetailsScreen(
-                            property_id:getPropertyList!.propertyList[index].propertyId.toString(),))
+                            property_id: results[index]['property_id'].toString(),))
+
                           // Get.to(PropertyDetailsScreen())
                           // Get.toNamed('/propertydetail')
                         },
@@ -434,7 +443,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   _launchPhoneCall(String phoneNumber) async {
-    final url = 'tel:$phoneNumber';
+    final url = 'tel:+91 $phoneNumber';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -496,6 +505,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   "city": getPropertyList!.propertyList[i].city,
                   "address": getPropertyList!.propertyList[i].address,
                   "mobileNumber": getPropertyList!.propertyList[i].mobile,
+                  "property_id": getPropertyList!.propertyList[i].propertyId,
                 });
                 print("locationList=========${locationList.toString()}");
               }

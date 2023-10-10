@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/helper.dart';
 import '../../constants/images.dart';
 import '../controllers/service_detail_controller.dart';
 
@@ -33,11 +34,13 @@ class _PlumberScreenState extends State<PlumberScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         toolbarHeight: 80,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: Image.asset(
-            Images.logo,
-            height: 200,
+        leading: InkWell(
+          onTap: () {
+            Helper.popScreen(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Icon(Icons.arrow_back,color: Colors.white,),
           ),
         ),
         centerTitle: true,

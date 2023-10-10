@@ -26,7 +26,7 @@ class Images{
   static const String house = 'assets/images/house.png';
   static const String congratulation2 = 'assets/images/congratulation2.png';
   static const String edit = 'assets/images/edit.png';
-  static const String man = 'assets/images/man.png';
+  static const String man = 'assets/images/default_profile.jpeg';
   static const String eye = 'assets/images/eye 1.png';
   static const String bin = 'assets/images/bin 1.png';
   static const String pencil = 'assets/images/pencil 1.png';
@@ -44,6 +44,7 @@ class Images{
   static const address='assets/images/address.png';
   static const aboutus='assets/images/aboutus.png';
   static const coming_soon='assets/images/coming_soon.png';
+  static const email_help='assets/images/email_help.png';
 
   // static const String Telephone = 'assets/Images/Telephone.png';
   // static const String Whatsapp = 'assets/Images/Whatsapp.png';

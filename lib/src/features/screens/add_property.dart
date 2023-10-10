@@ -42,6 +42,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
   var roomtype = [
     "Semi furnished",
     "Fully furnished",
+    "Unfurnished"
   ];
 
   var catagory = [
@@ -89,13 +90,13 @@ class _AddPropertynewState extends State<AddPropertynew> {
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         toolbarHeight: 80,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: ClipRect(
-            child: Image.asset(
-              Images.logo,
-              height: 200,
-            ),
+        leading: InkWell(
+          onTap: () {
+            Helper.popScreen(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Icon(Icons.arrow_back,color: Colors.white,),
           ),
         ),
         centerTitle: true,
@@ -125,7 +126,18 @@ class _AddPropertynewState extends State<AddPropertynew> {
               padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(TextScreen.title,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: AppColors.textcolor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 5,
+                    ),
                     TextField(
                           controller: titlecontroller,
                       //obscureText: true,
@@ -176,8 +188,22 @@ class _AddPropertynewState extends State<AddPropertynew> {
                     SizedBox(
                       height: 12,
                     ),
+                    Text(TextScreen.description,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: AppColors.textcolor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 5,
+                    ),
                     TextField(
                       controller: descriptioncontroller,
+                      maxLines: 2,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(250),
+                      ],
                       // controller: MobileController,
                       //obscureText: true,
                       decoration: InputDecoration(
@@ -225,6 +251,16 @@ class _AddPropertynewState extends State<AddPropertynew> {
                     ),
                     SizedBox(
                       height: 12,
+                    ),
+                    Text(TextScreen.address,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: AppColors.textcolor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 5,
                     ),
                     TextField(
                       controller: addresscontroller,
@@ -275,6 +311,16 @@ class _AddPropertynewState extends State<AddPropertynew> {
                     ),
                     SizedBox(
                       height: 12,
+                    ),
+                    Text(TextScreen.phone,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: AppColors.textcolor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 5,
                     ),
                     TextField(
                       controller: numbercontroller,
@@ -332,11 +378,23 @@ class _AddPropertynewState extends State<AddPropertynew> {
                         // )
                       ),
                     ),
+
                     SizedBox(
                       height: 12,
                     ),
+                    Text(TextScreen.rent_price,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: AppColors.textcolor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 5,
+                    ),
                     TextField(
                       controller: rentcontroller,
+                      keyboardType: TextInputType.number,
                       // controller: MobileController,
                       //obscureText: true,
                       decoration: InputDecoration(
@@ -382,6 +440,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
                         // )
                       ),
                     ),
+
                     SizedBox(
                       height: 12,
                     ),
@@ -423,6 +482,16 @@ class _AddPropertynewState extends State<AddPropertynew> {
                     //         }),
                     //   ),
                     // ),
+                    Text(TextScreen.City,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: AppColors.textcolor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 5,
+                    ),
                     TextField(
                       controller: citycontroller,
                       // controller: MobileController,
@@ -470,8 +539,19 @@ class _AddPropertynewState extends State<AddPropertynew> {
                         // )
                       ),
                     ),
+
                     SizedBox(
                       height: 12,
+                    ),
+                    Text(TextScreen.room_type,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: AppColors.textcolor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 5,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -513,6 +593,16 @@ class _AddPropertynewState extends State<AddPropertynew> {
                     ),
                     SizedBox(
                       height: 12,
+                    ),
+                    Text(TextScreen.Categories,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: AppColors.textcolor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 5,
                     ),
                     Container(
                     width: MediaQuery.of(context).size.width,
@@ -605,6 +695,16 @@ class _AddPropertynewState extends State<AddPropertynew> {
                     SizedBox(
                       height: 12,
                     ),
+                    Text(TextScreen.facilities_add,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: AppColors.textcolor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -628,6 +728,12 @@ class _AddPropertynewState extends State<AddPropertynew> {
                           width: MediaQuery.of(context).size.width/1.8,
                           child: TextField(
                             controller: facilitiescontroller,
+                            onSubmitted:(value) {
+                              dispose();
+                            },
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(20),
+                            ],
                             // controller: MobileController,
                             //obscureText: true,
                             decoration: InputDecoration(
@@ -705,77 +811,105 @@ class _AddPropertynewState extends State<AddPropertynew> {
                     SizedBox(height: 20,),
                     facilitiesList.isEmpty ?
                     Container():
-                    GridView.builder(
-                      shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: facilitiesList.length,
-                        gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            childAspectRatio: 2 / 1,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20),
-                        itemBuilder: (BuildContext ctx, index) {
-                          return Stack(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    // width: MediaQuery.of(context).size.width/2.5,
-                                    width: 150,
-                                    height: 58,
-                                    padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.primaryColor,
-                                      border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child:  Center(
-                                      child: Text(facilitiesList[index].toString(),
-                                          style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                            ),
-                                          )),
-                                    ),
-                                  ),
-                                  // Container(
-                                  //   width: MediaQuery.of(context).size.width/2.3,
-                                  //   padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                                  //   decoration: BoxDecoration(
-                                  //     color: AppColors.primaryColor,
-                                  //     border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
-                                  //     borderRadius: BorderRadius.circular(10),
-                                  //   ),
-                                  //   child:  Center(
-                                  //     child: Text("TV",
-                                  //         style: GoogleFonts.poppins(
-                                  //           textStyle: TextStyle(
-                                  //             color: Colors.white,
-                                  //             fontSize: 15,
-                                  //           ),
-                                  //         )),
-                                  //   ),
-                                  // ),
 
-                                ],
-                              ),
-                              Positioned(
-                                  top: 0,
-                                  right: 0,
-                                  child: InkWell(
-                                      onTap: (){
-                                        setState(() {
-                                          print(facilitiesList.length);
-                                          facilitiesList.removeAt(index);
-                                          print(facilitiesList.length);
-                                        });
-                                      },
-                                      child: Image.asset(Images.cross,height: 24,width: 24,))),
-                            ],
-                          );
-                        }),
+                    Container(
+                      width:MediaQuery.of(context).size.width ,
+                      height: 58,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: facilitiesList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Stack(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 10),
+                                  // width: MediaQuery.of(context).size.width/2.5,
+                                   width: 220,
+                                  height: 58,
+                                  padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primaryColor,
+                                    border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child:  Center(
+                                    child: Text(facilitiesList[index].toString(),
+                                        style: GoogleFonts.poppins(
+                                          textStyle: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                                Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: InkWell(
+                                        onTap: (){
+                                          setState(() {
+                                            print(facilitiesList.length);
+                                            facilitiesList.removeAt(index);
+                                            print(facilitiesList.length);
+                                          });
+                                        },
+                                        child: Image.asset(Images.cross,height: 24,width: 24,))),
+                              ],
+                            );
+                          }),
+                    ),
+
+
+
+
+                    // GridView.builder(
+                    //   shrinkWrap: true,
+                    //     physics: NeverScrollableScrollPhysics(),
+                    //     itemCount: facilitiesList.length,
+                    //     gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
+                    //         maxCrossAxisExtent: 100,
+                    //          childAspectRatio: 2 / 1.5,
+                    //         crossAxisSpacing: 10,
+                    //         mainAxisSpacing: 20),
+                    //     itemBuilder: (BuildContext ctx, index) {
+                    //       return Stack(
+                    //         children: [
+                    //           Container(
+                    //              // width: MediaQuery.of(context).size.width/2.5,
+                    //              width: 200,
+                    //              height: 58,
+                    //             padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+                    //             decoration: BoxDecoration(
+                    //               color: AppColors.primaryColor,
+                    //               border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
+                    //               borderRadius: BorderRadius.circular(10),
+                    //             ),
+                    //             child:  Center(
+                    //               child: Text(facilitiesList[index].toString(),
+                    //                   style: GoogleFonts.poppins(
+                    //                     textStyle: TextStyle(
+                    //                       color: Colors.white,
+                    //                       fontSize: 15,
+                    //                     ),
+                    //                   )),
+                    //             ),
+                    //           ),
+                    //           Positioned(
+                    //               top: 0,
+                    //               right: 0,
+                    //               child: InkWell(
+                    //                   onTap: (){
+                    //                     setState(() {
+                    //                       print(facilitiesList.length);
+                    //                       facilitiesList.removeAt(index);
+                    //                       print(facilitiesList.length);
+                    //                     });
+                    //                   },
+                    //                   child: Image.asset(Images.cross,height: 24,width: 24,))),
+                    //         ],
+                    //       );
+                    //     }),
                     SizedBox(
                       height: 12,
                     ),

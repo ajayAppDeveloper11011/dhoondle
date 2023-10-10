@@ -17,10 +17,17 @@ class Api{
   static const addService=BaseUrl+'addService';
   static const getMyProperty=BaseUrl+'getMyProperty';
   static const deleteMyProperty=BaseUrl+'deleteMyProperty';
+  static const editProfile=BaseUrl+'editProfile';
+  static const editProperty=BaseUrl+'editProperty';
+  static const markMyserviceInactive=BaseUrl+'markMyserviceInactive';
+  static const markMypropertyInactive=BaseUrl+'markMypropertyInactive';
+
+
   ///amit
 
   static const addServiceImages=BaseUrl+'addServiceImages';
   static const editService=BaseUrl+'editService';
   static const addProperty=BaseUrl+'addProperty';
   static const addPropertyImages=BaseUrl+'addPropertyImages';
+
 }

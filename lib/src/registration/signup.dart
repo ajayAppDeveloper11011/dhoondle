@@ -243,12 +243,13 @@ class _SignupState extends State<Signup> {
                           //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
                           // )
                         ),
-                        validator: (value){
-                          if(value!.isEmpty){ return "Please enter email";
-                          }else if(EmailValidator.validate(value.trim())){
-                            return null;
-                          }else{
-                            return"Invalid email address";
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return null; // Return null if the field is empty (optional)
+                          } else if (EmailValidator.validate(value.trim())) {
+                            return null; // Return null if the email is valid
+                          } else {
+                            return "Invalid email address"; // Return an error message for invalid email
                           }
                         },
                       ),
@@ -421,6 +422,8 @@ class _SignupState extends State<Signup> {
     // final allData =
     // querySnapshot.docs.map((doc) => doc.get('phone')).toList();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    print("========all data==========${allData}");
 
     if (allData.length==0) {
       //new code end

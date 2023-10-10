@@ -169,6 +169,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),),
                           ),
                           Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Text(getPropertyList!.propertyList[index]!.description.toString(), style: GoogleFonts.poppins(
+                                color: AppColors.greycolor,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            ),),
+                          ),
+                          Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,

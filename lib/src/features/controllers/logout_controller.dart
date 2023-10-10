@@ -24,6 +24,11 @@ class LogOutController extends GetxController{
     isLoading(true);
     final prefs = await SharedPreferences.getInstance();
     var user_id=   await prefs.getString('user_id');
+    if (user_id == "1") {
+      prefs.clear();
+    } else {
+      prefs.clear();
+    }
     var res = await dio.get(Api.logout+"?user_id=${user_id}");
     if(res.statusCode == 200){
       // Get.toNamed('/bottom');
@@ -40,7 +45,4 @@ class LogOutController extends GetxController{
       }
     }
   }
-
-
-
 }
