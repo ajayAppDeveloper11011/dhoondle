@@ -43,7 +43,7 @@ class ServiceDetailDesign extends StatelessWidget {
                     padding: const EdgeInsets.all(20.0),
                     child: Container(
                       // width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.17,
+                      height: MediaQuery.of(context).size.height * 0.2,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(color: Colors.black12),
@@ -184,7 +184,7 @@ class ServiceDetailDesign extends StatelessWidget {
                               ],
                             ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 0),
                   child: Container(
                     child: Column(
                                   mainAxisAlignment:
