@@ -30,7 +30,7 @@ class _TermsState extends State<Terms> {
                   isLoading = true;
                 });
               },
-              initialUrl:"http://ixorainfotech.in/Dhoondle/Webservice/privacypolicy",
+              initialUrl:"https://winnersdivine.com/Winners/Webservice/privacypolicy",
               javascriptMode: JavascriptMode.unrestricted,
               zoomEnabled: false,
             ),

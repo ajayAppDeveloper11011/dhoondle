@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dhoondle/src/constants/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,6 +48,7 @@ class ServiceListDesign extends StatelessWidget {
               child: InkWell(
                 onTap: () => {
                   service=serviceController.serviceListApiModel!.serviceList![index].services.toString(),
+                  // Helper.moveToScreenwithPush(context, PlumberScreen(services: serviceController.serviceListApiModel!.serviceList![index].services.toString(),))
                   Get.toNamed('/plumber',arguments: service.toString()),
                   // Get.toNamed('/plumber')
                 },
@@ -94,16 +96,16 @@ class ServiceListDesign extends StatelessWidget {
                           child: CachedNetworkImage(
                             imageUrl:serviceController.serviceListApiModel!.serviceList![index].image.toString(),
                             fit: BoxFit.fill,
-                            width: 50,
-                            height: 50,
+                            height: 100,
+                            width: 100,
                             placeholder: (context, url) =>
                                 LinearProgressIndicator(
                                   color: Colors.white.withOpacity(0.2),
                                   backgroundColor: Colors.white.withOpacity(.5),
                                 ),
                             errorWidget: (context, url, error) => Container(
-                              width: 50,
-                              height: 50,
+                              height: 100,
+                              width: 100,
                               decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(20),
@@ -113,8 +115,8 @@ class ServiceListDesign extends StatelessWidget {
                               child: Center(
                                   child: Image.asset(
                                     choices[index].image,
-                                    height: 50,
-                                    width: 50,
+                                    height: 100,
+                                    width: 100,
                                   )),
                             ),
                           )

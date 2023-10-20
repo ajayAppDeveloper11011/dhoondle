@@ -21,7 +21,7 @@ import '../../constants/images.dart';
 import '../../constants/text.dart';
 import '../controllers/common_model.dart';
 
-class AddServiceScreen extends StatefulWidget {
+class EditServiceScreen extends StatefulWidget {
   String service_id="";
   String service_name="";
   String service_des="";
@@ -31,23 +31,23 @@ class AddServiceScreen extends StatefulWidget {
   String serviceCategory;
   String whichscreen;
   String experience;
-   AddServiceScreen({
-     required this.service_id,
-     required this.serviceCategory,
-     required this.service_name,
-     required this.service_des,
-     required this.number,required this.address,
-     required this.serviceImage,
-     required this.experience,
-     required this.whichscreen,
+  EditServiceScreen({
+    required this.service_id,
+    required this.serviceCategory,
+    required this.service_name,
+    required this.service_des,
+    required this.number,required this.address,
+    required this.serviceImage,
+    required this.experience,
+    required this.whichscreen,
 
-   });
+  });
 
   @override
-  State<AddServiceScreen> createState() => _AddServiceScreenState();
+  State<EditServiceScreen> createState() => _EditServiceScreenState();
 }
 
-class _AddServiceScreenState extends State<AddServiceScreen> {
+class _EditServiceScreenState extends State<EditServiceScreen> {
 
   var chooseservice = [
     "Plumbing",
@@ -85,9 +85,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // widget.whichscreen=='Add Service'
-        // ?
-    // dataGet():
+dataGet();
     Helper.checkInternet(getservices());
 
   }
@@ -133,7 +131,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
       body: Stack(
         children: [
           serviceListApiModel==null?
-              Container():
+          Container():
           Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -156,92 +154,92 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                         height: 5,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.symmetric(horizontal: 22, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Color(0xffEAEDF2),
-                          border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child:
-                        // DropdownButtonHideUnderline(
-                        //   child: DropdownButton(
-                        //       hint: Padding(
-                        //         padding:  EdgeInsets.only(left: 5),
-                        //         child: Text("Choose Service",
-                        //             style: GoogleFonts.poppins(
-                        //               textStyle: TextStyle(
-                        //                 color: AppColors.txtgreyclr,
-                        //                 fontSize: 15,
-                        //               ),
-                        //             )),
-                        //       ),
-                        //       // isExpanded: true,
-                        //       value: selectedOption,
-                        //       icon: const Icon(Icons.keyboard_arrow_down),
-                        //       items: newMapOfMonths.map((key,value) {
-                        //         return MapEntry(key,
-                        //             DropdownMenuItem(
-                        //           value: value,
-                        //           child: Text(key.toString(),
-                        //             style: TextStyle(
-                        //                 color: Colors.grey,fontSize: 18
-                        //             ),
-                        //           ),
-                        //         ));
-                        //       }).values.toList(),
-                        //       onChanged: (value) {
-                        //         setState(() {
-                        //           selectedOption=value.toString();
-                        //           serviceid=value.toString();
-                        //           print("serviceid============>${serviceid.toString()}");
-                        //           print("selectedOption============>${selectedOption.toString()}");
-                        //
-                        //         });
-                        //
-                        //       },
-                        //        ),
-                        // ),
-                        DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            hint: Padding(
-                              padding: EdgeInsets.only(left: 5),
-                              child: Text("Choose Service",
-                                  style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                      color: AppColors.txtgreyclr,
-                                      fontSize: 15,
-                                    ),
-                                  )),
-                            ),
-                            value: selectedOption,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: newMapOfMonths.keys.map((key) {
-                              return DropdownMenuItem(
-                                value: newMapOfMonths[key],
-                                child: Text(
-                                  key.toString(),
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                selectedOption = value.toString();
-                                // Find the corresponding key for the selected value
-                                selectedKey = newMapOfMonths.keys.firstWhere(
-                                      (key) => newMapOfMonths[key] == value,
-                                  orElse: () => null, // Handle if no match is found
-                                );
-                                print("Selectservice============>${selectedKey}");
-                                print("serviceid============>${selectedOption}");
-                              });
-                            },
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.symmetric(horizontal: 22, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Color(0xffEAEDF2),
+                            border: Border.all(color: AppColors.addpropertyfillclr, width: 1),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        )
+                          child:
+                          // DropdownButtonHideUnderline(
+                          //   child: DropdownButton(
+                          //       hint: Padding(
+                          //         padding:  EdgeInsets.only(left: 5),
+                          //         child: Text("Choose Service",
+                          //             style: GoogleFonts.poppins(
+                          //               textStyle: TextStyle(
+                          //                 color: AppColors.txtgreyclr,
+                          //                 fontSize: 15,
+                          //               ),
+                          //             )),
+                          //       ),
+                          //       // isExpanded: true,
+                          //       value: selectedOption,
+                          //       icon: const Icon(Icons.keyboard_arrow_down),
+                          //       items: newMapOfMonths.map((key,value) {
+                          //         return MapEntry(key,
+                          //             DropdownMenuItem(
+                          //           value: value,
+                          //           child: Text(key.toString(),
+                          //             style: TextStyle(
+                          //                 color: Colors.grey,fontSize: 18
+                          //             ),
+                          //           ),
+                          //         ));
+                          //       }).values.toList(),
+                          //       onChanged: (value) {
+                          //         setState(() {
+                          //           selectedOption=value.toString();
+                          //           serviceid=value.toString();
+                          //           print("serviceid============>${serviceid.toString()}");
+                          //           print("selectedOption============>${selectedOption.toString()}");
+                          //
+                          //         });
+                          //
+                          //       },
+                          //        ),
+                          // ),
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              hint: Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child: Text("Choose Service",
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        color: AppColors.txtgreyclr,
+                                        fontSize: 15,
+                                      ),
+                                    )),
+                              ),
+                              value: selectedOption,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: newMapOfMonths.keys.map((key) {
+                                return DropdownMenuItem(
+                                  value: newMapOfMonths[key],
+                                  child: Text(
+                                    key.toString(),
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedOption = value.toString();
+                                  // Find the corresponding key for the selected value
+                                  selectedKey = newMapOfMonths.keys.firstWhere(
+                                        (key) => newMapOfMonths[key] == value,
+                                    orElse: () => null, // Handle if no match is found
+                                  );
+                                  print("Selectservice============>${selectedKey}");
+                                  print("serviceid============>${selectedOption}");
+                                });
+                              },
+                            ),
+                          )
                       ),
                       SizedBox(
                         height: 12,
@@ -260,10 +258,10 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(250),
                         ],
-                         controller: descriptioncontroller,
+                        controller: descriptioncontroller,
                         maxLines: 2,
                         //obscureText: true,
-                    decoration: InputDecoration(
+                        decoration: InputDecoration(
                           // fillColor: AppColors.addpropertyfillclr,
                           fillColor: Color(0xffEAEDF2),
                           filled: true,
@@ -326,62 +324,62 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                         height: 5,
                       ),
                       TextFormField(
-                         controller: numbercontroller,
-                        //obscureText: true,
+                          controller: numbercontroller,
+                          //obscureText: true,
                           enabled: true,
                           keyboardType: TextInputType.number,
                           inputFormatters: [LengthLimitingTextInputFormatter(11)],
-                        decoration: InputDecoration(
-                          // fillColor: AppColors.addpropertyfillclr,
-                          fillColor: Color(0xffEAEDF2),
-                          filled: true,
-                          hintText: "+91",
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Image.asset(
-                              Images.telephonetxtfield,
-                              height: 5,
+                          decoration: InputDecoration(
+                            // fillColor: AppColors.addpropertyfillclr,
+                            fillColor: Color(0xffEAEDF2),
+                            filled: true,
+                            hintText: "+91",
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset(
+                                Images.telephonetxtfield,
+                                height: 5,
+                              ),
                             ),
-                          ),
-                          contentPadding:
-                          EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                          hintStyle: GoogleFonts.poppins(
-                              color: AppColors.txtgreyclr, fontSize: 15),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(
-                                width: 1, color: AppColors.addpropertyfillclr),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(
-                                width: 1, color: AppColors.addpropertyfillclr),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(
-                                width: 1, color: AppColors.addpropertyfillclr),
-                          ),
-                          border: OutlineInputBorder(
+                            contentPadding:
+                            EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+                            hintStyle: GoogleFonts.poppins(
+                                color: AppColors.txtgreyclr, fontSize: 15),
+                            focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                               borderSide: BorderSide(
-                                width: 1,
-                              )),
-                          errorBorder: OutlineInputBorder(
+                                  width: 1, color: AppColors.addpropertyfillclr),
+                            ),
+                            disabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                               borderSide: BorderSide(
-                                  width: 1, color: AppColors.addpropertyfillclr)),
-                          focusedErrorBorder: OutlineInputBorder(
+                                  width: 1, color: AppColors.addpropertyfillclr),
+                            ),
+                            enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                               borderSide: BorderSide(
-                                  width: 1, color: AppColors.addpropertyfillclr)),
+                                  width: 1, color: AppColors.addpropertyfillclr),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                borderSide: BorderSide(
+                                  width: 1,
+                                )),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.addpropertyfillclr)),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.addpropertyfillclr)),
 
-                          // border: OutlineInputBorder(
-                          //     borderRadius: BorderRadius.circular(20),
-                          //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
-                          // )
+                            // border: OutlineInputBorder(
+                            //     borderRadius: BorderRadius.circular(20),
+                            //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
+                            // )
 
-                        ),
+                          ),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return ("Please enter your number");
@@ -406,7 +404,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                         height: 5,
                       ),
                       TextFormField(
-                         controller: addresscontroller,
+                        controller: addresscontroller,
                         //obscureText: true,
                         decoration: InputDecoration(
                           // fillColor: AppColors.addpropertyfillclr,
@@ -567,41 +565,41 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                         height: 12,
                       ),
                       ListView.builder(
-                        itemCount: _assetImgList.length,
+                          itemCount: _assetImgList.length,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
                             File asset = _assetImgList[index];
-                        return  Stack(
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height*0.18,
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.only(top: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.transparent,
-                              ),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child:
-                                  Image.file(asset, fit: BoxFit.fill,)
-                              ),
-                            ),
-                            Positioned(
-                                top: 0,
-                                right: 0,
-                                child: InkWell(
-                                    onTap: (){
-                                      setState(() {
-                                        print(_assetImgList.length);
-                                        _assetImgList.removeAt(index);
-                                        print(_assetImgList.length);
-                                      });
-                                    },
-                                    child: Image.asset(Images.cross,height: 40,))),
-                          ],
-                        );
-                      }),
+                            return  Stack(
+                              children: [
+                                Container(
+                                  height: MediaQuery.of(context).size.height*0.18,
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: EdgeInsets.only(top: 10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.transparent,
+                                  ),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child:
+                                      Image.file(asset, fit: BoxFit.fill,)
+                                  ),
+                                ),
+                                Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: InkWell(
+                                        onTap: (){
+                                          setState(() {
+                                            print(_assetImgList.length);
+                                            _assetImgList.removeAt(index);
+                                            print(_assetImgList.length);
+                                          });
+                                        },
+                                        child: Image.asset(Images.cross,height: 40,))),
+                              ],
+                            );
+                          }),
                       // Container(
                       //   height: MediaQuery.of(context).size.height*0.18,
                       //   width: MediaQuery.of(context).size.width,
@@ -630,11 +628,11 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                             // Get.to(OtpScreen());
                             // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Setting3()));
                             // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ServicesTabbar()));
-                              if(widget.service_name ==""){
-                                Helper.checkInternet(addService());
-                              }else{
-                                Helper.checkInternet(editServiceApi());
-                              }
+                            if(widget.service_name ==""){
+                              Helper.checkInternet(addService());
+                            }else{
+                              Helper.checkInternet(editServiceApi());
+                            }
                           },
                           color: AppColors.ButtonColor,
                           textColor: Colors.black,
@@ -767,13 +765,15 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
             }
             setState(() {
               serviceListApiModel = model;
-              if(widget.service_name ==""){
-                selectedOption=serviceListApiModel!.serviceList![0].serviceId.toString();
-
-                selectedKey=serviceListApiModel!.serviceList![0].services.toString();
-              }else{
-                // selectedOption = widget.service_id.toString();
-              }
+              selectedOption=serviceListApiModel!.serviceList![0].serviceId.toString();
+              selectedKey=serviceListApiModel!.serviceList![0].services.toString();
+              // if(widget.service_name ==""){
+              //   selectedOption=serviceListApiModel!.serviceList![0].serviceId.toString();
+              //
+              //   selectedKey=serviceListApiModel!.serviceList![0].services.toString();
+              // }else{
+              //   // selectedOption = widget.service_id.toString();
+              // }
 
             });
 
@@ -823,14 +823,14 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
 
     Map data = {
       'user_id': user_id.toString(),
-    'service_id':selectedOption,
-    'service':selectedKey.toString(),
-    'description':descriptioncontroller.text.toString(),
-    'number':numbercontroller.text.toString(),
-    'amount':"500",
-    'address':addresscontroller.text.toString(),
-    'yearsOfExperience':experienceController.text.toString(),
-    'image':imageList.toString()
+      'service_id':selectedOption,
+      'service':selectedKey.toString(),
+      'description':descriptioncontroller.text.toString(),
+      'number':numbercontroller.text.toString(),
+      'amount':"500",
+      'address':addresscontroller.text.toString(),
+      'yearsOfExperience':experienceController.text.toString(),
+      'image':imageList.toString()
     };
 
     print("Request =============>" + data.toString());
@@ -975,7 +975,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
               _editServiceModel = model;
             });
             // Helper.moveToScreenwithRoutClear(context, ServicesTabbar());
-             Helper.moveToScreenwithPushreplaceemt(context, ServicesTabbar());
+            Helper.moveToScreenwithPushreplaceemt(context, ServicesTabbar());
             // ToastMessage.msg(model.message.toString());
           } else {
             // setState(() {
@@ -1003,7 +1003,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
     setProgress(false);
   }
 
-    void dataGet(){
+  void dataGet(){
 
     print("=============dataGet===============");
 
@@ -1015,10 +1015,13 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
       selectedOption = widget.service_id.toString();
       selectedKey = widget.service_name.toString();
       getImage= widget.serviceImage.toString();
+
+
+
       print("selectedOption====${ selectedOption.toString()}");
       print("selectedKey====${ selectedKey.toString()}");
       print("number===========${widget.number}");
     });
- }
+  }
 
 }

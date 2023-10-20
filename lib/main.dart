@@ -16,6 +16,7 @@ import 'package:dhoondle/src/features/screens/setting3.dart';
 import 'package:dhoondle/src/features/screens/settings.dart';
 import 'package:dhoondle/src/features/screens/splash_screen.dart';
 import 'package:dhoondle/src/features/screens/tabbar_screen.dart';
+import 'package:dhoondle/src/features/screens/test_screen_tabbar.dart';
 import 'package:dhoondle/src/registration/log_in_screen.dart';
 import 'package:dhoondle/src/registration/otp_screen.dart';
 import 'package:dhoondle/src/registration/signup.dart';
@@ -58,9 +59,10 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/setting3', page: () => Setting3()),
         GetPage(name: '/setting2', page: () => Setting2()),
         GetPage(name: '/addservice', page: () => AddServiceScreen(service_id: '', service_name: '', service_des: '', number: '', address: '', serviceImage: '', serviceCategory: '', experience: '', whichscreen: '',)),
-        GetPage(name: '/plumber', page: () => PlumberScreen()),
+        GetPage(name: '/plumber', page: () => PlumberScreen(services: '',)),
         GetPage(name: '/propertyscreen', page: () => PropertyScreen()),
         GetPage(name: '/Policy', page: () => PrivacyPolicyScreen()),
+        GetPage(name: '/tabtext', page: () => TabbarTextNew()),
       ],
       theme: ThemeData(
         // This is the theme of your application.
@@ -74,7 +76,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
+      home: TabbarTextNew(),
     );
   }
 }

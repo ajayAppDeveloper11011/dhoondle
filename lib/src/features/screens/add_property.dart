@@ -1055,26 +1055,28 @@ class _AddPropertynewState extends State<AddPropertynew> {
                     SizedBox(
                       height: 40,
                     ),
-                    MaterialButton(
-                      onPressed: () {
-                        Helper.checkInternet(addPropertyApi());
-                        // Get.to(OtpScreen());
-                        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ServicesTabbar()));
+                    Center(
+                      child: MaterialButton(
+                        onPressed: () {
+                          Helper.checkInternet(addPropertyApi());
+                          // Get.to(OtpScreen());
+                          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ServicesTabbar()));
 
-                      },
-                      color: AppColors.ButtonColor,
-                      textColor: Colors.black,
-                      minWidth: 320,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      child: Text(
-                        'Submit',
-                        style: GoogleFonts.roboto(
-                          textStyle: Theme.of(context).textTheme.displayLarge,
-                          fontSize: 20,
-                          color: AppColors.ButtonTextColor,
-                          fontWeight: FontWeight.bold,
+                        },
+                        color: AppColors.ButtonColor,
+                        textColor: Colors.black,
+                        minWidth: 320,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        child: Text(
+                          'Submit',
+                          style: GoogleFonts.roboto(
+                            textStyle: Theme.of(context).textTheme.displayLarge,
+                            fontSize: 20,
+                            color: AppColors.ButtonTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -1197,7 +1199,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
               // if(widget.service_name ==""){
               //   selectedOption="3";
               // }else{
-                selectedOption = "1";
+                selectedOption =getPropertyCategoryModel!.categoryList[0].categoryId.toString();
               // }
 
             });

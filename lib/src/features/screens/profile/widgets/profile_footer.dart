@@ -64,7 +64,7 @@ class ProfileFooter extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            HelperClass.moveToScreenwithPush(context, PrivacyPolicyScreen());
+            HelperClass.moveToScreenwithPush(context, Terms());
 
           },
           child: Container(

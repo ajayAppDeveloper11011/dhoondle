@@ -12,7 +12,8 @@ import '../../constants/images.dart';
 import '../controllers/service_detail_controller.dart';
 
 class PlumberScreen extends StatefulWidget {
-  const PlumberScreen({super.key});
+  String services="";
+   PlumberScreen({required this.services});
 
   @override
   State<PlumberScreen> createState() => _PlumberScreenState();
@@ -45,7 +46,7 @@ class _PlumberScreenState extends State<PlumberScreen> {
         ),
         centerTitle: true,
         elevation: 0,
-        title: Text('Plumbers',
+        title: Text(service,
             style: GoogleFonts.roboto(
               textStyle: TextStyle(
                   color:Colors.white,

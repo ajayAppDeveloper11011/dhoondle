@@ -209,7 +209,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     decoration: InputDecoration(
                                       fillColor: AppColors.FillColor,
                                       filled: true,
-                                      hintText:  "",
+                                      hintText:  "Name",
                                       hintStyle: GoogleFonts.roboto(color: AppColors.HintTextColor),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -268,7 +268,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     decoration: InputDecoration(
                                       fillColor: AppColors.FillColor,
                                       filled: true,
-                                      hintText:  "",
+                                      hintText:  "Address",
                                       hintStyle:
                                       GoogleFonts.roboto(color: AppColors.HintTextColor),
 
@@ -337,10 +337,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     decoration: InputDecoration(
                                       fillColor: AppColors.FillColor,
                                       filled: true,
-                                      hintText:"",
+                                      hintText:"Email",
                                       hintStyle:
                                       GoogleFonts.roboto(color: AppColors.HintTextColor),
-
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(15)),
                                         borderSide:
@@ -374,12 +373,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
                                       // )
                                     ),
-                                    validator: (value){
-                                      if(value!.isEmpty){ return "Please enter email";
-                                      }else if(EmailValidator.validate(value.trim())){
-                                        return null;
-                                      }else{
-                                        return"Invalid email address";
+
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return null; // Return null if the field is empty (optional)
+                                      } else if (EmailValidator.validate(value.trim())) {
+                                        return null; // Return null if the email is valid
+                                      } else {
+                                        return "Invalid email address"; // Return an error message for invalid email
                                       }
                                     },
                                   ),
@@ -399,7 +400,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       decoration: InputDecoration(
                                         fillColor: AppColors.FillColor,
                                         filled: true,
-                                        hintText:"",
+                                        hintText:"Mobile",
                                         hintStyle:
                                         GoogleFonts.roboto(color: AppColors.HintTextColor),
 
@@ -453,7 +454,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ),
                                 SizedBox(height: 30,),
                                 SizedBox(
-                                  height: MediaQuery.of(context).size.height*0.20,
+                                  height: MediaQuery.of(context).size.height*0.05,
                                 ),
                                 Center(
                                   child: MaterialButton(
@@ -836,6 +837,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             setProgress(false);
             ToastMessage.msg(model.message.toString());
+            Helper.moveToScreenwithPushreplaceemt(context, BottomNaigation());
             // Helper.moveToScreenwithPushreplaceemt(context, BottomNavBar());
           } else {
             setProgress(false);

@@ -1140,8 +1140,8 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
               // if(widget.service_name ==""){
               //   selectedOption="3";
               // }else{
-              selectedOption = "1";
-              selectedKey="RK";
+              selectedOption = getPropertyCategoryModel!.categoryList[0].categoryId.toString();
+              selectedKey=getPropertyCategoryModel!.categoryList[0].category.toString();
               // }
 
             });

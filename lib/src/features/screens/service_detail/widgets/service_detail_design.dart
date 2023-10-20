@@ -112,11 +112,20 @@ class ServiceDetailDesign extends StatelessWidget {
                                                 fontWeight: FontWeight.w500),
                                           )),
                                     ),
-                                    Text( "${ servicedetailController.serviceDetailModel!.data![index].yearsOfExperience.toString()} years",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color:Colors.black)),
+                                    Row(
+                                      children: [
+                                        Text( "Experience:",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                color:Color(0xff4C4C4C))),
+                                        Text(" ${ servicedetailController.serviceDetailModel!.data![index].yearsOfExperience.toString()} years",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color:Colors.black)),
+                                      ],
+                                    ),
                                     // SizedBox(
                                     //   height: 0,
                                     // ),

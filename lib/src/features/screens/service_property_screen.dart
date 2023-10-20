@@ -21,6 +21,8 @@ import '../controllers/get_servicelist_controller.dart';
 import 'add_services.dart';
 import 'package:http/http.dart'as http;
 
+import 'edit_screen_service.dart';
+
 class ServiceScreenTabbar extends StatefulWidget {
   const ServiceScreenTabbar({Key? key}) : super(key: key);
 
@@ -241,14 +243,16 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
                                     InkWell(
                                       onTap: (){
                                        Helper.moveToScreenwithPush(context,
-                                           AddServiceScreen(
+                                           EditServiceScreen(
                                              serviceImage:getServiceListApi!.serviceList![index].image.toString(),
                                              service_id: getServiceListApi!.serviceList![index].serviceId.toString(),
                                              service_name:  getServiceListApi!.serviceList![index].service.toString(),
                                              service_des: getServiceListApi!.serviceList![index].description.toString(),
                                              address: getServiceListApi!.serviceList![index].address.toString(),
                                              number: getServiceListApi!.serviceList![index].number.toString(),
-                                             serviceCategory: getServiceListApi!.serviceList![index].id.toString(), experience: getServiceListApi!.serviceList![index].yearsOfExperience.toString(), whichscreen: 'Edit Service' ,
+                                             serviceCategory: getServiceListApi!.serviceList![index].id.toString(),
+                                             experience: getServiceListApi!.serviceList![index].yearsOfExperience.toString(),
+                                             whichscreen: 'Edit service' ,
                                            ));
                                       },
                                       child: Image.asset(
@@ -297,7 +301,9 @@ class _ServiceScreenTabbarState extends State<ServiceScreenTabbar> {
         backgroundColor: Colors.white,
         onPressed: () {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-              AddServiceScreen(service_id: '', service_name: '', service_des: '', number: number, address: '', serviceImage: '', serviceCategory: '', experience: '', whichscreen: 'Add Service',)));
+              AddServiceScreen(service_id: '', service_name: '', service_des: '',
+                number: number, address: '', serviceImage: '', serviceCategory: '', experience: '',
+                whichscreen: 'Add Service',)));
           // Add your action here
           // For example, you can navigate to another screen or perform some action.
           // Navigator.push(context, MaterialPageRoute(builder: (context) => NextScreen()));
