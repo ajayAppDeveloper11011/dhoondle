@@ -1,5 +1,5 @@
 class Api{
-  static const BaseUrl='https://dhoondle.com/Dhoondle/Webservice/';
+  static const BaseUrl='http://dhoondle.com/Dhoondle/Webservice/';
 
   static const signup=BaseUrl+'signup';
   static const login=BaseUrl+'login';
