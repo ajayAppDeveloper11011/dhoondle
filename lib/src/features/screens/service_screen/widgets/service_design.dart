@@ -19,6 +19,7 @@ class ServiceListDesign extends StatelessWidget {
   final List<Choice> choices;
   final serviceController=Get.put(ServiceListController());
   String service="";
+
    void initState() {
      // TODO: implement initState
      // super.initState();
@@ -94,7 +95,8 @@ class ServiceListDesign extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: CachedNetworkImage(
-                            imageUrl:serviceController.serviceListApiModel!.serviceList![index].image.toString(),
+                            imageUrl:
+                            serviceController.serviceListApiModel!.serviceList![index].image.toString(),
                             fit: BoxFit.fill,
                             height: 100,
                             width: 100,

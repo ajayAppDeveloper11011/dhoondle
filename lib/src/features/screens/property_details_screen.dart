@@ -206,9 +206,10 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    getPropertyDetailModel!.propertyImage!.isEmpty? Container():  AnimatedSmoothIndicator(
+                    getPropertyDetailModel!.propertyImage!.isEmpty? Container():
+                    AnimatedSmoothIndicator(
                       activeIndex: currentIndex,
-                      count: 3,
+                      count: getPropertyDetailModel!.propertyImage!.length,
                       effect: SlideEffect(
                           dotWidth: 12,
                           dotHeight: 12,

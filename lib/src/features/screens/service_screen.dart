@@ -19,10 +19,7 @@ class ServiceScreen extends StatefulWidget {
 
 class _ServiceScreenState extends State<ServiceScreen> {
   List<Choice> choices = [
-    Choice(
-        color: Colors.white,
-        image: Images.img1,
-        title: 'Electrician'),
+    Choice(color: Colors.white, image: Images.img1, title: 'Electrician'),
     Choice(color: Colors.white, image: Images.img2, title: 'Plumber'),
     Choice(color: Colors.white, image: Images.img3, title: 'Cleaner'),
   ];
