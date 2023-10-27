@@ -30,7 +30,7 @@ class _TermsState extends State<Terms> {
                   isLoading = true;
                 });
               },
-              initialUrl:"https://dhoondle.com/Dhoondle/Webservice/privacypolicy",
+              initialUrl:"https://dhoondle.github.io/privacypolicy/privacypolicy.html",
               javascriptMode: JavascriptMode.unrestricted,
               zoomEnabled: false,
             ),

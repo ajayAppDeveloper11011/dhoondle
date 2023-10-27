@@ -52,355 +52,360 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    //header part
-                    SignupHeader(model: SignupModel(headertext: 'Sign up'),),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-                    //form part
-                    Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: TextFormField(
-                        controller: nameController,
-                        textInputAction: TextInputAction.next,
-                        //obscureText: true,
-                        decoration: InputDecoration(
-                          fillColor: AppColors.FillColor,
-                          filled: true,
-                          hintText: "Name",
-                          hintStyle: GoogleFonts.roboto(color: AppColors.HintTextColor),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide:
-                            BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide:
-                            BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide:
-                            BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide: BorderSide(
-                                width: 1,
-                              )),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide:
-                              BorderSide(width: 1, color: Color(0xffBFBFBF))),
-                          focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide:
-                              BorderSide(width: 1, color: Color(0xffBFBFBF))),
-                          // border: OutlineInputBorder(
-                          //     borderRadius: BorderRadius.circular(20),
-                          //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
-                          // )
-
-                        ),
-
-                        validator: (name){
-                          if (name!.isEmpty) {
-                            return "Enter name";
-                            // ToastMessage.msg("Please enter phone number");
-                          }
-                          // else if (name.length !> 2) {
-                          //   return "Enter valid name";
-                          //   // ToastMessage.msg("Mobile Number must be of 10 digit");
-                          // }
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 20,),
-                    Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: TextFormField(
-                        textInputAction: TextInputAction.next,
-                        controller: addressController,
-                        //obscureText: true,
-                        decoration: InputDecoration(
-                          fillColor: AppColors.FillColor,
-                          filled: true,
-                          hintText: "Address",
-                          hintStyle:
-                          GoogleFonts.roboto(color: AppColors.HintTextColor),
-
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide:
-                            BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide:
-                            BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide:
-                            BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide: BorderSide(
-                                width: 1,
-                              )),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide:
-                              BorderSide(width: 1, color: Color(0xffBFBFBF))),
-                          focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide:
-                              BorderSide(width: 1, color: Color(0xffBFBFBF))),
-                          // border: OutlineInputBorder(
-                          //     borderRadius: BorderRadius.circular(20),
-                          //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
-                          // )
-                        ),
-
-
-                        validator: (value){
-                          if(value!.isEmpty){ return "Please enter your address";
-                          }
-                          else if(value.length < 8){
-                            return "Enter valid address";
-                          }
-                        },
-
-                        // validator: (address){
-                        //   if (address!.isEmpty) {
-                        //     return "Enter address";
-                        //     // ToastMessage.msg("Please enter phone number");
-                        //   }
-                        //   else if (address.length !> 2) {
-                        //     return "Enter valid address";
-                        //     // ToastMessage.msg("Mobile Number must be of 10 digit");
-                        //   }
-                        // },
-                      ),
-                    ),
-                    SizedBox(height: 20,),
-                    Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: TextFormField(
-                        controller: emailController,
-                        textInputAction: TextInputAction.next,
-                        //obscureText: true,
-                        decoration: InputDecoration(
-                          fillColor: AppColors.FillColor,
-                          filled: true,
-                          hintText: "Email (Optional)",
-                          hintStyle:
-                          GoogleFonts.roboto(color: AppColors.HintTextColor),
-
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide:
-                            BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide:
-                            BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide:
-                            BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide: BorderSide(
-                                width: 1,
-                              )),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide:
-                              BorderSide(width: 1, color: Color(0xffBFBFBF))),
-                          focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide:
-                              BorderSide(width: 1, color: Color(0xffBFBFBF))),
-                          // border: OutlineInputBorder(
-                          //     borderRadius: BorderRadius.circular(20),
-                          //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
-                          // )
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return null; // Return null if the field is empty (optional)
-                          } else if (EmailValidator.validate(value.trim())) {
-                            return null; // Return null if the email is valid
-                          } else {
-                            return "Invalid email address"; // Return an error message for invalid email
-                          }
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 20,),
-                    Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: TextFormField(
-                          controller: mobileController,
-                          textInputAction: TextInputAction.done,
-                          keyboardType: TextInputType.phone,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(10),
-                          ],
-                          //obscureText: true,
-                          decoration: InputDecoration(
-                            fillColor: AppColors.FillColor,
-                            filled: true,
-                            hintText: "Mobile",
-                            hintStyle:
-                            GoogleFonts.roboto(color: AppColors.HintTextColor),
-
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide:
-                              BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide:
-                              BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              borderSide:
-                              BorderSide(width: 1, color: Color(0xffBFBFBF)),
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
-                                borderSide: BorderSide(
-                                  width: 1,
-                                )),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
-                                borderSide:
-                                BorderSide(width: 1, color: Color(0xffBFBFBF))),
-                            focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
-                                borderSide:
-                                BorderSide(width: 1, color: Color(0xffBFBFBF))),
-                            // border: OutlineInputBorder(
-                            //     borderRadius: BorderRadius.circular(20),
-                            //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
-                            // )
-                          ),
-                          // onChanged: (value) {
-                          //
-                          //   signUpController.validatePhoneNumber(value);
-                          // },
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return ("Please enter your number");
-                            }
-                            else if (value.length != 10) {
-                              return ("Number must be equal to ten digits");
-                            }
-                          }
-
-                      ),
-                    ),
-                    SizedBox(height: 30,),
-                    Row(
+        body: Stack(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("By continuing, you agree to the",
-                            style: GoogleFonts.roboto(
-                                fontSize: 16,
-                                color: AppColors.HintTextColor,
-                                fontWeight: FontWeight.w400)),
+                        //header part
+                        SignupHeader(model: SignupModel(headertext: 'Sign up'),),
+
                         SizedBox(
-                          width: 8,
+                          height: 20,
                         ),
-                        InkWell(
-                          onTap: () => {
-                            HelperClass.moveToScreenwithPush(context, Terms())
-                          },
-                          child: Text("Privacy Policy",
-                              style: GoogleFonts.roboto(
-                                  fontSize: 16,
-                                  color: AppColors.RedTextColor,
-                                  fontWeight: FontWeight.w500)),
+                        //form part
+                        Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          child: TextFormField(
+                            controller: nameController,
+                            textInputAction: TextInputAction.next,
+                            //obscureText: true,
+                            decoration: InputDecoration(
+                              fillColor: AppColors.FillColor,
+                              filled: true,
+                              hintText: "Name",
+                              hintStyle: GoogleFonts.roboto(color: AppColors.HintTextColor),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderSide:
+                                BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderSide:
+                                BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderSide:
+                                BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                  )),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide:
+                                  BorderSide(width: 1, color: Color(0xffBFBFBF))),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide:
+                                  BorderSide(width: 1, color: Color(0xffBFBFBF))),
+                              // border: OutlineInputBorder(
+                              //     borderRadius: BorderRadius.circular(20),
+                              //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
+                              // )
+
+                            ),
+
+                            validator: (name){
+                              if (name!.isEmpty) {
+                                return "Enter name";
+                                // ToastMessage.msg("Please enter phone number");
+                              }
+                              // else if (name.length !> 2) {
+                              //   return "Enter valid name";
+                              //   // ToastMessage.msg("Mobile Number must be of 10 digit");
+                              // }
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          child: TextFormField(
+                            textInputAction: TextInputAction.next,
+                            controller: addressController,
+                            //obscureText: true,
+                            decoration: InputDecoration(
+                              fillColor: AppColors.FillColor,
+                              filled: true,
+                              hintText: "Address",
+                              hintStyle:
+                              GoogleFonts.roboto(color: AppColors.HintTextColor),
+
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderSide:
+                                BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderSide:
+                                BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderSide:
+                                BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                  )),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide:
+                                  BorderSide(width: 1, color: Color(0xffBFBFBF))),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide:
+                                  BorderSide(width: 1, color: Color(0xffBFBFBF))),
+                              // border: OutlineInputBorder(
+                              //     borderRadius: BorderRadius.circular(20),
+                              //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
+                              // )
+                            ),
+
+
+                            validator: (value){
+                              if(value!.isEmpty){ return "Please enter your address";
+                              }
+                              else if(value.length < 8){
+                                return "Enter valid address";
+                              }
+                            },
+
+                            // validator: (address){
+                            //   if (address!.isEmpty) {
+                            //     return "Enter address";
+                            //     // ToastMessage.msg("Please enter phone number");
+                            //   }
+                            //   else if (address.length !> 2) {
+                            //     return "Enter valid address";
+                            //     // ToastMessage.msg("Mobile Number must be of 10 digit");
+                            //   }
+                            // },
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          child: TextFormField(
+                            controller: emailController,
+                            textInputAction: TextInputAction.next,
+                            //obscureText: true,
+                            decoration: InputDecoration(
+                              fillColor: AppColors.FillColor,
+                              filled: true,
+                              hintText: "Email (Optional)",
+                              hintStyle:
+                              GoogleFonts.roboto(color: AppColors.HintTextColor),
+
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderSide:
+                                BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderSide:
+                                BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderSide:
+                                BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                  )),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide:
+                                  BorderSide(width: 1, color: Color(0xffBFBFBF))),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide:
+                                  BorderSide(width: 1, color: Color(0xffBFBFBF))),
+                              // border: OutlineInputBorder(
+                              //     borderRadius: BorderRadius.circular(20),
+                              //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
+                              // )
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return null; // Return null if the field is empty (optional)
+                              } else if (EmailValidator.validate(value.trim())) {
+                                return null; // Return null if the email is valid
+                              } else {
+                                return "Invalid email address"; // Return an error message for invalid email
+                              }
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          child: TextFormField(
+                              controller: mobileController,
+                              textInputAction: TextInputAction.done,
+                              keyboardType: TextInputType.phone,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(10),
+                              ],
+                              //obscureText: true,
+                              decoration: InputDecoration(
+                                fillColor: AppColors.FillColor,
+                                filled: true,
+                                hintText: "Mobile",
+                                hintStyle:
+                                GoogleFonts.roboto(color: AppColors.HintTextColor),
+
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide:
+                                  BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide:
+                                  BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide:
+                                  BorderSide(width: 1, color: Color(0xffBFBFBF)),
+                                ),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                    )),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                    borderSide:
+                                    BorderSide(width: 1, color: Color(0xffBFBFBF))),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                    borderSide:
+                                    BorderSide(width: 1, color: Color(0xffBFBFBF))),
+                                // border: OutlineInputBorder(
+                                //     borderRadius: BorderRadius.circular(20),
+                                //     borderSide: new BorderSide(color: Color(0xffBFBFBF))
+                                // )
+                              ),
+                              // onChanged: (value) {
+                              //
+                              //   signUpController.validatePhoneNumber(value);
+                              // },
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return ("Please enter your number");
+                                }
+                                else if (value.length != 10) {
+                                  return ("Number must be equal to ten digits");
+                                }
+                              }
+
+                          ),
+                        ),
+                        SizedBox(height: 30,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("By continuing, you agree to the",
+                                style: GoogleFonts.roboto(
+                                    fontSize: 16,
+                                    color: AppColors.HintTextColor,
+                                    fontWeight: FontWeight.w400)),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () => {
+                                HelperClass.moveToScreenwithPush(context, Terms())
+                              },
+                              child: Text("Privacy Policy",
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 16,
+                                      color: AppColors.RedTextColor,
+                                      fontWeight: FontWeight.w500)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 50),
+                        MaterialButton(
+                            onPressed: (){
+                              // if (_formKey.currentState!.validate())
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                Helper.checkInternet(phoneCheckWithFirebase());
+                              }
+
+                              // print(signUpController.nameController.value.text.toString());
+                              // Get.toNamed('/otp');
+                              // Get.to(LogInScreen());
+                            },
+                            color:  Color(0xffD70404),textColor: Colors.black,
+                            minWidth: 320,shape:RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                            padding: EdgeInsets.symmetric(horizontal: 20,vertical: 15),
+                            child:
+                            Text("Sign up", style: GoogleFonts.roboto(
+                              textStyle: Theme.of(context).textTheme.displayLarge,
+                              fontSize: 20,
+                              color: AppColors.ButtonTextColor,
+                              fontWeight: FontWeight.bold,
+                            ),)
+
+                        ),
+                        SizedBox(height: 100,),
+                        Center(
+                          child:Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Already have an account?",
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 16,
+                                      color: AppColors.HintTextColor,
+                                      fontWeight: FontWeight.w400)),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              InkWell(
+                                onTap: () => {
+                                  Get.toNamed('/login')
+                                },
+                                child: Text("Log In",
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 16,
+                                        color: AppColors.RedTextColor,
+                                        fontWeight: FontWeight.w500)),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 50),
-                    MaterialButton(
-                        onPressed: (){
-                          // if (_formKey.currentState!.validate())
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-                            Helper.checkInternet(phoneCheckWithFirebase());
-                          }
-
-                          // print(signUpController.nameController.value.text.toString());
-                          // Get.toNamed('/otp');
-                          // Get.to(LogInScreen());
-                        },
-                        color:  Color(0xffD70404),textColor: Colors.black,
-                        minWidth: 320,shape:RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 15),
-                        child:
-                        Text("Sign up", style: GoogleFonts.roboto(
-                          textStyle: Theme.of(context).textTheme.displayLarge,
-                          fontSize: 20,
-                          color: AppColors.ButtonTextColor,
-                          fontWeight: FontWeight.bold,
-                        ),)
-
-                    ),
-                    SizedBox(height: 100,),
-                    Center(
-                      child:Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Already have an account?",
-                              style: GoogleFonts.roboto(
-                                  fontSize: 16,
-                                  color: AppColors.HintTextColor,
-                                  fontWeight: FontWeight.w400)),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          InkWell(
-                            onTap: () => {
-                              Get.toNamed('/login')
-                            },
-                            child: Text("Log In",
-                                style: GoogleFonts.roboto(
-                                    fontSize: 16,
-                                    color: AppColors.RedTextColor,
-                                    fontWeight: FontWeight.w500)),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
+            Positioned(child: Helper.getProgressBar(context, _isVisible))
+          ],
         ),
       ),
     );

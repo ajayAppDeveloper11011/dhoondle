@@ -20,7 +20,7 @@
 
 
    <application
-        android:label="Dhoondle : Search Rooms, Property &amp; Services"
+        android:label="Dhoondle"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
