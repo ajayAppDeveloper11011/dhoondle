@@ -508,9 +508,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       source: ImageSource.camera,
       imageQuality: 50,
     );
-    setState(() {
-      _image = File(image!.path);
-    });
+    if (image != null) {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: image.path,
+        aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+        compressQuality: 100,
+        maxHeight: 1000,
+        maxWidth: 1000,
+        compressFormat: ImageCompressFormat.jpg,
+
+      );
+
+      setState(() {
+
+        _image = File(croppedFile!.path);
+        String path = _image.toString();
+        print("path" + _image!.path);
+
+
+      });
+    }
+    // setState(() {
+    //   _image = File(image!.path);
+    // });
   }
 
   _imgFromGallery() async {
@@ -518,12 +538,35 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       source: ImageSource.gallery,
       imageQuality: 50,
     );
-    // _image=_cropImage(image);
-    setState(() {
-      _image = File(image!.path);
-      String path = _image.toString();
-      print("path" + _image!.path);
-    });
+     // _image=_cropImage(image);
+    // setState(() {
+    //   _image = File(image!.path);
+    //   String path = _image.toString();
+    //   print("path" + _image!.path);
+    // });
+
+    if (image != null) {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: image.path,
+        aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+        compressQuality: 100,
+        maxHeight: 1000,
+        maxWidth: 1000,
+        compressFormat: ImageCompressFormat.jpg,
+
+      );
+
+      setState(() {
+
+        _image = File(croppedFile!.path);
+        String path = _image.toString();
+        print("path" + _image!.path);
+
+
+      });
+    }
+
+
 
     // Helper.checkInternet(uploadImage(_image!.path));
   }
@@ -558,150 +601,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         });
   }
 
-  // _imgFromCamera() async {
-  //   PickedFile? image = await _picker.getImage(
-  //     source: ImageSource.camera,
-  //     imageQuality: 50,
-  //   );
-  //   // _cropImage(image);
-  //   // setState(() {
-  //   //   _image = File(image!.path);
-  //   //   String path = _image.toString();
-  //   //   print("path" + _image!.path);
-  //   // });
-  //
-  //   if (image != null) {
-  //     CroppedFile? croppedFile = await ImageCropper().cropImage(
-  //       sourcePath: image.path,
-  //       aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
-  //       compressQuality: 100,
-  //       maxHeight: 1000,
-  //       maxWidth: 1000,
-  //       compressFormat: ImageCompressFormat.jpg,
-  //
-  //     );
-  //
-  //     setState(() {
-  //
-  //       _image = File(croppedFile!.path);
-  //       String path = _image.toString();
-  //       print("path" + _image!.path);
-  //
-  //
-  //     });
-  //   }
-  // }
-  //
-  // _imgFromGallery() async {
-  //   PickedFile? image = await _picker.getImage(
-  //     source: ImageSource.gallery,
-  //     imageQuality: 50,
-  //   );
-  //
-  //
-  //   if (image != null) {
-  //     CroppedFile? croppedFile = await ImageCropper().cropImage(
-  //       sourcePath: image.path,
-  //       aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
-  //       compressQuality: 100,
-  //       maxHeight: 1000,
-  //       maxWidth: 1000,
-  //       compressFormat: ImageCompressFormat.jpg,
-  //
-  //     );
-  //
-  //     setState(() {
-  //
-  //       _image = File(croppedFile!.path);
-  //       String path = _image.toString();
-  //       print("path" + _image!.path);
-  //
-  //
-  //     });
-  //   }
-  //
-  //
-  // }
-  //
-  // // _imgFromCamera() async {
-  // //   final XFile? image = await _picker.pickImage(
-  // //     source: ImageSource.camera,
-  // //     imageQuality: 50,
-  // //   );
-  // //   // _cropImage(image);
-  // //   // setState(() {
-  // //   //   _image = File(image!.path);
-  // //   //   String path = _image.toString();
-  // //   //   print("path" + _image!.path);
-  // //   // });
-  // //
-  // //   if (image != null) {
-  // //     CroppedFile? croppedFile = await ImageCropper().cropImage(
-  // //       sourcePath: image.path,
-  // //       aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
-  // //       compressQuality: 100,
-  // //       maxHeight: 1000,
-  // //       maxWidth: 1000,
-  // //       compressFormat: ImageCompressFormat.jpg,
-  // //
-  // //     );
-  // //
-  // //     setState(() {
-  // //
-  // //       _image = File(croppedFile!.path);
-  // //       String path = _image.toString();
-  // //       print("path" + _image!.path);
-  // //
-  // //
-  // //     });
-  // //   }
-  // // }
-  //
-  //
-  // // _imgFromGallery() async {
-  // //   final XFile? image = await _picker.pickImage(
-  // //     source: ImageSource.gallery,
-  // //     imageQuality: 50,
-  // //   );
-  // //   // _image=_cropImage(image);
-  // //   setState(() {
-  // //     _image = File(image!.path);
-  // //     String path = _image.toString();
-  // //     print("path" + _image!.path);
-  // //   });
-  // //
-  // //   // Helper.checkInternet(uploadImage(_image!.path));
-  // // }
-  //
-  // void _showPicker(context) {
-  //   showModalBottomSheet(
-  //       context: context,
-  //       builder: (BuildContext bc) {
-  //         return SafeArea(
-  //           child: Container(
-  //             child: new Wrap(
-  //               children: <Widget>[
-  //                 new ListTile(
-  //                     leading: new Icon(Icons.photo_library),
-  //                     title: new Text('Photo Library'),
-  //                     onTap: () {
-  //                       _imgFromGallery();
-  //                       Navigator.of(context).pop();
-  //                     }),
-  //                 new ListTile(
-  //                   leading: new Icon(Icons.photo_camera),
-  //                   title: new Text('Camera'),
-  //                   onTap: () {
-  //                     _imgFromCamera();
-  //                     Navigator.of(context).pop();
-  //                   },
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         );
-  //       });
-  // }
+
+
+
 
   _buttonSubmit() {
     if (_formKey.currentState!.validate()) {
